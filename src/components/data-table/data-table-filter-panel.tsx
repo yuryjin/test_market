@@ -58,17 +58,13 @@ export function DataTableFilterPanel<TData>({
     [statusColumn],
   );
 
-  if (!open) return null;
-
   return (
-    <>
-      {/* Overlay */}
-      <div
-        className="fixed inset-0 bg-black/50 z-40"
-        onClick={() => onOpenChange(false)}
-      />
-      {/* Panel */}
-      <div className="fixed left-0 top-0 h-full w-80 bg-card border-r z-50 flex flex-col">
+    <div
+      className={cn(
+        "absolute top-0 w-80 bg-card border-r z-50 flex flex-col transition-all duration-300 shadow-lg",
+        open ? "left-[10px]" : "-left-[330px]",
+      )}
+    >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-lg font-semibold">Фильтры</h2>
@@ -108,12 +104,17 @@ export function DataTableFilterPanel<TData>({
                 <div className="flex items-center gap-1 px-2 py-1 bg-muted rounded-md text-sm min-w-[40px]">
                   <span className="text-muted-foreground">...</span>
                 </div>
-                <div className="flex items-center gap-1 px-2 py-1 bg-[#8973FA4D] rounded-md text-sm">
-                  <span className="text-[#C0B4FF]">3</span>
+                <div
+                  className="flex items-center gap-1 px-2 py-1 rounded-md text-sm"
+                  style={{
+                    backgroundColor: "#8973FA4D",
+                  }}
+                >
+                  <span style={{ color: "#C0B4FF" }}>3</span>
                   <button className="hover:opacity-70">
-                    <X className="h-3 w-3 text-[#C0B4FF]" />
+                    <X className="h-3 w-3" style={{ color: "#C0B4FF" }} />
                   </button>
-                  <ChevronDown className="h-3 w-3 text-[#C0B4FF]" />
+                  <ChevronDown className="h-3 w-3" style={{ color: "#C0B4FF" }} />
                 </div>
               </div>
               <FilterSection
@@ -275,7 +276,6 @@ export function DataTableFilterPanel<TData>({
           </div>
         </div>
       </div>
-    </>
   );
 }
 

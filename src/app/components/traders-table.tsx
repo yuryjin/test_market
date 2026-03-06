@@ -73,8 +73,18 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
   );
 
   return (
-    <>
-      <div className={cn("transition-all", filterPanelOpen && "ml-80")}>
+    <div className="relative">
+      <DataTableFilterPanel
+        table={table}
+        open={filterPanelOpen}
+        onOpenChange={setFilterPanelOpen}
+      />
+      <div
+        className={cn(
+          "transition-all duration-300",
+          filterPanelOpen && "ml-[330px]",
+        )}
+      >
         <DataTable table={table}>
           {enableAdvancedFilter ? (
             <DataTableAdvancedToolbar table={table} filterToggle={filterToggle}>
@@ -103,12 +113,7 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
           )}
         </DataTable>
       </div>
-      <DataTableFilterPanel
-        table={table}
-        open={filterPanelOpen}
-        onOpenChange={setFilterPanelOpen}
-      />
-    </>
+    </div>
   );
 }
 
