@@ -5,6 +5,8 @@ import { DataTable } from "@/components/data-table/data-table";
 import { DataTableAdvancedToolbar } from "@/components/data-table/data-table-advanced-toolbar";
 import { DataTableFilterList } from "@/components/data-table/data-table-filter-list";
 import { DataTableFilterMenu } from "@/components/data-table/data-table-filter-menu";
+import { DataTableFilterPanel } from "@/components/data-table/data-table-filter-panel";
+import { DataTableFilterToggle } from "@/components/data-table/data-table-filter-toggle";
 import { DataTableSortList } from "@/components/data-table/data-table-sort-list";
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 import type { Trader } from "@/types/trader";
@@ -16,6 +18,7 @@ import type {
 } from "../lib/traders-queries";
 import { useFeatureFlags } from "./feature-flags-provider";
 import { getTradersTableColumns } from "./traders-table-columns";
+import { cn } from "@/lib/utils";
 
 interface TradersTableProps {
   promises: Promise<
@@ -29,6 +32,7 @@ interface TradersTableProps {
 
 export function TradersTable({ promises, queryKeys }: TradersTableProps) {
   const { enableAdvancedFilter, filterFlag } = useFeatureFlags();
+  const [filterPanelOpen, setFilterPanelOpen] = React.useState(false);
 
   const [{ data, pageCount }, statusCounts] = React.use(promises);
 
@@ -60,34 +64,51 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
     clearOnDefault: true,
   });
 
+  const filterToggle = (
+    <DataTableFilterToggle
+      table={table}
+      open={filterPanelOpen}
+      onOpenChange={setFilterPanelOpen}
+    />
+  );
+
   return (
-    <DataTable table={table}>
-      {enableAdvancedFilter ? (
-        <DataTableAdvancedToolbar table={table}>
-          <DataTableSortList table={table} align="start" />
-          {filterFlag === "advancedFilters" ? (
-            <DataTableFilterList
-              table={table}
-              shallow={shallow}
-              debounceMs={debounceMs}
-              throttleMs={throttleMs}
-              align="start"
-            />
+    <>
+      <div className={cn("transition-all", filterPanelOpen && "ml-80")}>
+        <DataTable table={table}>
+          {enableAdvancedFilter ? (
+            <DataTableAdvancedToolbar table={table} filterToggle={filterToggle}>
+              <DataTableSortList table={table} align="start" />
+              {filterFlag === "advancedFilters" ? (
+                <DataTableFilterList
+                  table={table}
+                  shallow={shallow}
+                  debounceMs={debounceMs}
+                  throttleMs={throttleMs}
+                  align="start"
+                />
+              ) : (
+                <DataTableFilterMenu
+                  table={table}
+                  shallow={shallow}
+                  debounceMs={debounceMs}
+                  throttleMs={throttleMs}
+                />
+              )}
+            </DataTableAdvancedToolbar>
           ) : (
-            <DataTableFilterMenu
-              table={table}
-              shallow={shallow}
-              debounceMs={debounceMs}
-              throttleMs={throttleMs}
-            />
+            <DataTableToolbar table={table} filterToggle={filterToggle}>
+              <DataTableSortList table={table} align="end" />
+            </DataTableToolbar>
           )}
-        </DataTableAdvancedToolbar>
-      ) : (
-        <DataTableToolbar table={table}>
-          <DataTableSortList table={table} align="end" />
-        </DataTableToolbar>
-      )}
-    </DataTable>
+        </DataTable>
+      </div>
+      <DataTableFilterPanel
+        table={table}
+        open={filterPanelOpen}
+        onOpenChange={setFilterPanelOpen}
+      />
+    </>
   );
 }
 

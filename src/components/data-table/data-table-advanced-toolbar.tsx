@@ -9,11 +9,13 @@ import { cn } from "@/lib/utils";
 interface DataTableAdvancedToolbarProps<TData>
   extends React.ComponentProps<"div"> {
   table: Table<TData>;
+  filterToggle?: React.ReactNode;
 }
 
 export function DataTableAdvancedToolbar<TData>({
   table,
   children,
+  filterToggle,
   className,
   ...props
 }: DataTableAdvancedToolbarProps<TData>) {
@@ -27,7 +29,10 @@ export function DataTableAdvancedToolbar<TData>({
       )}
       {...props}
     >
-      <div className="flex flex-1 flex-wrap items-center gap-2">{children}</div>
+      <div className="flex flex-1 flex-wrap items-center gap-2">
+        {filterToggle}
+        {children}
+      </div>
       <div className="flex items-center gap-2">
         <DataTableViewOptions table={table} align="end" />
       </div>
