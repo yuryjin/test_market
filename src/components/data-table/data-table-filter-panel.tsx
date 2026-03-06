@@ -68,7 +68,7 @@ export function DataTableFilterPanel<TData>({
       )}
     >
         {/* Header */}
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between p-4 pb-0">
           <h2 className="text-[24px] leading-[27px] tracking-normal font-medium">Фильтры</h2>
           <div className="flex bg-[#BEBDC814] rounded-[12px]">
             <Button
@@ -91,11 +91,11 @@ export function DataTableFilterPanel<TData>({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-6">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3 pt-6">
           {/* Трейдер Section */}
           <div className="space-y-3">
             <h3 className="font-semibold text-[18px] leading-[22px] tracking-normal">Трейдер</h3>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <div className="flex gap-2 flex-wrap">
                 <div className="flex items-center gap-1 px-2 py-1 bg-muted rounded-md text-sm">
                   <span>TraderName</span>
