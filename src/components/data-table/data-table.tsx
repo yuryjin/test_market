@@ -27,13 +27,13 @@ export function DataTable<TData>({
 }: DataTableProps<TData>) {
   return (
     <div
-      className={cn("flex w-full flex-col gap-2.5 overflow-auto", className)}
+      className={cn("flex w-full flex-col gap-2.5 overflow-auto bg-[#BEBDC81F] p-4 rounded-[26px]", className)}
       {...props}
     >
       {children}
       <div className="overflow-hidden rounded-md border">
         <div className="relative">
-          <div className="sticky top-0 z-10 bg-background shadow-sm">
+          <div className="sticky top-0 z-10 bg-background shadow-sm" style={{ backgroundColor: '#BEBDC81F' }}>
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -102,12 +102,12 @@ export function DataTable<TData>({
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2.5">
+      {/* <div className="flex flex-col gap-2.5">
         <DataTablePagination table={table} />
         {actionBar &&
           table.getFilteredSelectedRowModel().rows.length > 0 &&
           actionBar}
-      </div>
+      </div> */}
     </div>
   );
 }
