@@ -70,9 +70,9 @@ export function DataTableFilterPanel<TData>({
         {/* Header */}
         <div className="flex items-center justify-between p-4">
           <h2 className="text-[24px] leading-[27px] tracking-normal font-medium">Фильтры</h2>
-          <div className="flex gap-2">
+          <div className="flex bg-[#BEBDC814] rounded-[12px]">
             <Button
-              variant={selectedView === "all" ? "default" : "ghost"}
+              variant={selectedView === "all" ? "inverted" : "ghost"}
               size="sm"
               onClick={() => setSelectedView("all")}
               className="h-7 text-xs"
@@ -80,7 +80,7 @@ export function DataTableFilterPanel<TData>({
               Все
             </Button>
             <Button
-              variant={selectedView === "selected" ? "default" : "ghost"}
+              variant={selectedView === "selected" ? "inverted" : "ghost"}
               size="sm"
               onClick={() => setSelectedView("selected")}
               className="h-7 text-xs"
