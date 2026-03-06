@@ -383,5 +383,1055 @@
       "total": 18862,
       "current": 465
     }
+  },
+  {
+    "id": 2847,
+    "name": "TraderEleven",
+    "status": "Активен",
+    "team": "SuperTraders",
+    "group": "Трейдер Binance",
+    "created": "2024-03-15T08:22:11Z",
+    "lastActive": "2025-01-10T16:45:22Z",
+    "deals": {
+      "total": 145,
+      "successful": 128,
+      "profitable": 95,
+      "failed": 17
+    },
+    "deposit": {
+      "hold": 450,
+      "working": 380,
+      "insurance": 5200
+    },
+    "turnover": {
+      "average": 78234,
+      "daily": 1245,
+      "perCycle": 890
+    },
+    "percentage": 6.2,
+    "income": 312,
+    "speed": {
+      "current": 95,
+      "average": 78
+    },
+    "cycles": {
+      "total": 12450,
+      "current": 567
+    }
+  },
+  {
+    "id": 3921,
+    "name": "TraderTwelve",
+    "status": "Оффлайн",
+    "team": "AlphaTeam",
+    "group": "Трейдер Coinbase",
+    "created": "2024-02-10T14:33:45Z",
+    "lastActive": "2024-11-25T09:12:18Z",
+    "deals": {
+      "total": 78,
+      "successful": 62,
+      "profitable": 45,
+      "failed": 16
+    },
+    "deposit": {
+      "hold": 195,
+      "working": 168,
+      "insurance": 2100
+    },
+    "turnover": {
+      "average": 32145,
+      "daily": 567,
+      "perCycle": 445
+    },
+    "percentage": 4.7,
+    "income": 178,
+    "speed": {
+      "current": 82,
+      "average": 65
+    },
+    "cycles": {
+      "total": 6789,
+      "current": 312
+    }
+  },
+  {
+    "id": 4567,
+    "name": "TraderThirteen",
+    "status": "Активен",
+    "team": "MegaTraders",
+    "group": "Трейдеры Альпари",
+    "created": "2024-08-12T11:15:30Z",
+    "lastActive": "2025-02-05T14:22:10Z",
+    "deals": {
+      "total": 167,
+      "successful": 152,
+      "profitable": 118,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 520,
+      "working": 445,
+      "insurance": 6800
+    },
+    "turnover": {
+      "average": 95432,
+      "daily": 1567,
+      "perCycle": 1123
+    },
+    "percentage": 7.8,
+    "income": 456,
+    "speed": {
+      "current": 110,
+      "average": 88
+    },
+    "cycles": {
+      "total": 15234,
+      "current": 789
+    }
+  },
+  {
+    "id": 5234,
+    "name": "TraderFourteen",
+    "status": "Заблокирован",
+    "team": "SuperTraders",
+    "group": "Трейдер Alpari",
+    "created": "2024-01-25T16:44:22Z",
+    "lastActive": "2024-03-10T10:30:15Z",
+    "deals": {
+      "total": 89,
+      "successful": 71,
+      "profitable": 52,
+      "failed": 18
+    },
+    "deposit": {
+      "hold": 280,
+      "working": 195,
+      "insurance": 3200
+    },
+    "turnover": {
+      "average": 41234,
+      "daily": 678,
+      "perCycle": 512
+    },
+    "percentage": 3.1,
+    "income": 234,
+    "speed": {
+      "current": 75,
+      "average": 58
+    },
+    "cycles": {
+      "total": 9876,
+      "current": 423
+    }
+  },
+  {
+    "id": 6789,
+    "name": "TraderFifteen",
+    "status": "Активен",
+    "team": "AlphaTeam",
+    "group": "Трейдер Binance",
+    "created": "2024-09-18T09:27:55Z",
+    "lastActive": "2025-01-28T18:15:42Z",
+    "deals": {
+      "total": 198,
+      "successful": 185,
+      "profitable": 142,
+      "failed": 13
+    },
+    "deposit": {
+      "hold": 680,
+      "working": 590,
+      "insurance": 8900
+    },
+    "turnover": {
+      "average": 123456,
+      "daily": 2134,
+      "perCycle": 1456
+    },
+    "percentage": 9.2,
+    "income": 567,
+    "speed": {
+      "current": 135,
+      "average": 102
+    },
+    "cycles": {
+      "total": 18765,
+      "current": 923
+    }
+  },
+  {
+    "id": 7456,
+    "name": "TraderSixteen",
+    "status": "Оффлайн",
+    "team": "MegaTraders",
+    "group": "Трейдер Coinbase",
+    "created": "2024-06-08T13:20:40Z",
+    "lastActive": "2024-12-15T11:45:33Z",
+    "deals": {
+      "total": 112,
+      "successful": 98,
+      "profitable": 73,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 340,
+      "working": 275,
+      "insurance": 4500
+    },
+    "turnover": {
+      "average": 56789,
+      "daily": 890,
+      "perCycle": 678
+    },
+    "percentage": 5.4,
+    "income": 289,
+    "speed": {
+      "current": 88,
+      "average": 71
+    },
+    "cycles": {
+      "total": 11234,
+      "current": 556
+    }
+  },
+  {
+    "id": 8123,
+    "name": "TraderSeventeen",
+    "status": "Активен",
+    "team": "SuperTraders",
+    "group": "Трейдеры Альпари",
+    "created": "2024-10-05T15:38:20Z",
+    "lastActive": "2025-02-12T12:20:55Z",
+    "deals": {
+      "total": 156,
+      "successful": 142,
+      "profitable": 108,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 590,
+      "working": 510,
+      "insurance": 7200
+    },
+    "turnover": {
+      "average": 87654,
+      "daily": 1456,
+      "perCycle": 1023
+    },
+    "percentage": 8.3,
+    "income": 423,
+    "speed": {
+      "current": 105,
+      "average": 85
+    },
+    "cycles": {
+      "total": 14567,
+      "current": 712
+    }
+  },
+  {
+    "id": 8890,
+    "name": "TraderEighteen",
+    "status": "Оффлайн",
+    "team": "AlphaTeam",
+    "group": "Трейдер Alpari",
+    "created": "2024-05-30T10:55:15Z",
+    "lastActive": "2024-10-22T08:30:40Z",
+    "deals": {
+      "total": 94,
+      "successful": 78,
+      "profitable": 58,
+      "failed": 16
+    },
+    "deposit": {
+      "hold": 225,
+      "working": 190,
+      "insurance": 2800
+    },
+    "turnover": {
+      "average": 38976,
+      "daily": 623,
+      "perCycle": 489
+    },
+    "percentage": 4.2,
+    "income": 201,
+    "speed": {
+      "current": 79,
+      "average": 63
+    },
+    "cycles": {
+      "total": 8765,
+      "current": 398
+    }
+  },
+  {
+    "id": 9456,
+    "name": "TraderNineteen",
+    "status": "Активен",
+    "team": "MegaTraders",
+    "group": "Трейдер Binance",
+    "created": "2024-07-22T12:18:33Z",
+    "lastActive": "2025-01-15T16:50:25Z",
+    "deals": {
+      "total": 178,
+      "successful": 165,
+      "profitable": 128,
+      "failed": 13
+    },
+    "deposit": {
+      "hold": 720,
+      "working": 630,
+      "insurance": 9500
+    },
+    "turnover": {
+      "average": 108765,
+      "daily": 1876,
+      "perCycle": 1345
+    },
+    "percentage": 9.5,
+    "income": 612,
+    "speed": {
+      "current": 142,
+      "average": 115
+    },
+    "cycles": {
+      "total": 16789,
+      "current": 856
+    }
+  },
+  {
+    "id": 1023,
+    "name": "TraderTwenty",
+    "status": "Заблокирован",
+    "team": "SuperTraders",
+    "group": "Трейдер Coinbase",
+    "created": "2024-04-03T14:25:50Z",
+    "lastActive": "2024-05-20T09:15:30Z",
+    "deals": {
+      "total": 67,
+      "successful": 52,
+      "profitable": 38,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 165,
+      "working": 128,
+      "insurance": 1900
+    },
+    "turnover": {
+      "average": 28765,
+      "daily": 445,
+      "perCycle": 345
+    },
+    "percentage": 2.8,
+    "income": 156,
+    "speed": {
+      "current": 68,
+      "average": 52
+    },
+    "cycles": {
+      "total": 5432,
+      "current": 234
+    }
+  },
+  {
+    "id": 2156,
+    "name": "TraderTwentyOne",
+    "status": "Активен",
+    "team": "AlphaTeam",
+    "group": "Трейдеры Альпари",
+    "created": "2024-11-08T08:40:12Z",
+    "lastActive": "2025-02-20T14:35:48Z",
+    "deals": {
+      "total": 189,
+      "successful": 175,
+      "profitable": 135,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 810,
+      "working": 720,
+      "insurance": 10200
+    },
+    "turnover": {
+      "average": 134567,
+      "daily": 2234,
+      "perCycle": 1567
+    },
+    "percentage": 10.1,
+    "income": 723,
+    "speed": {
+      "current": 158,
+      "average": 125
+    },
+    "cycles": {
+      "total": 19876,
+      "current": 987
+    }
+  },
+  {
+    "id": 3245,
+    "name": "TraderTwentyTwo",
+    "status": "Оффлайн",
+    "team": "MegaTraders",
+    "group": "Трейдер Alpari",
+    "created": "2024-03-28T16:12:25Z",
+    "lastActive": "2024-09-18T10:22:15Z",
+    "deals": {
+      "total": 103,
+      "successful": 89,
+      "profitable": 67,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 380,
+      "working": 310,
+      "insurance": 4800
+    },
+    "turnover": {
+      "average": 62345,
+      "daily": 1012,
+      "perCycle": 756
+    },
+    "percentage": 6.7,
+    "income": 345,
+    "speed": {
+      "current": 92,
+      "average": 74
+    },
+    "cycles": {
+      "total": 12345,
+      "current": 623
+    }
+  },
+  {
+    "id": 4378,
+    "name": "TraderTwentyThree",
+    "status": "Активен",
+    "team": "SuperTraders",
+    "group": "Трейдер Binance",
+    "created": "2024-12-01T11:30:45Z",
+    "lastActive": "2025-02-18T19:25:30Z",
+    "deals": {
+      "total": 201,
+      "successful": 189,
+      "profitable": 148,
+      "failed": 12
+    },
+    "deposit": {
+      "hold": 950,
+      "working": 850,
+      "insurance": 11800
+    },
+    "turnover": {
+      "average": 156789,
+      "daily": 2678,
+      "perCycle": 1890
+    },
+    "percentage": 11.2,
+    "income": 845,
+    "speed": {
+      "current": 168,
+      "average": 138
+    },
+    "cycles": {
+      "total": 21345,
+      "current": 1056
+    }
+  },
+  {
+    "id": 5467,
+    "name": "TraderTwentyFour",
+    "status": "Оффлайн",
+    "team": "AlphaTeam",
+    "group": "Трейдер Coinbase",
+    "created": "2024-02-14T09:18:33Z",
+    "lastActive": "2024-08-30T15:40:22Z",
+    "deals": {
+      "total": 87,
+      "successful": 72,
+      "profitable": 54,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 245,
+      "working": 205,
+      "insurance": 3100
+    },
+    "turnover": {
+      "average": 34567,
+      "daily": 556,
+      "perCycle": 423
+    },
+    "percentage": 3.9,
+    "income": 189,
+    "speed": {
+      "current": 73,
+      "average": 59
+    },
+    "cycles": {
+      "total": 7654,
+      "current": 345
+    }
+  },
+  {
+    "id": 6589,
+    "name": "TraderTwentyFive",
+    "status": "Активен",
+    "team": "MegaTraders",
+    "group": "Трейдеры Альпари",
+    "created": "2024-09-25T13:45:20Z",
+    "lastActive": "2025-01-30T17:15:10Z",
+    "deals": {
+      "total": 164,
+      "successful": 151,
+      "profitable": 118,
+      "failed": 13
+    },
+    "deposit": {
+      "hold": 670,
+      "working": 580,
+      "insurance": 8400
+    },
+    "turnover": {
+      "average": 98765,
+      "daily": 1678,
+      "perCycle": 1201
+    },
+    "percentage": 8.6,
+    "income": 512,
+    "speed": {
+      "current": 118,
+      "average": 96
+    },
+    "cycles": {
+      "total": 15678,
+      "current": 789
+    }
+  },
+  {
+    "id": 7124,
+    "name": "TraderTwentySix",
+    "status": "Заблокирован",
+    "team": "SuperTraders",
+    "group": "Трейдер Alpari",
+    "created": "2024-01-18T10:22:15Z",
+    "lastActive": "2024-02-25T14:10:40Z",
+    "deals": {
+      "total": 72,
+      "successful": 58,
+      "profitable": 42,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 195,
+      "working": 155,
+      "insurance": 2400
+    },
+    "turnover": {
+      "average": 26789,
+      "daily": 412,
+      "perCycle": 312
+    },
+    "percentage": 2.5,
+    "income": 134,
+    "speed": {
+      "current": 65,
+      "average": 48
+    },
+    "cycles": {
+      "total": 4321,
+      "current": 198
+    }
+  },
+  {
+    "id": 8234,
+    "name": "TraderTwentySeven",
+    "status": "Активен",
+    "team": "AlphaTeam",
+    "group": "Трейдер Binance",
+    "created": "2024-10-15T15:30:55Z",
+    "lastActive": "2025-02-25T13:45:20Z",
+    "deals": {
+      "total": 192,
+      "successful": 178,
+      "profitable": 139,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 880,
+      "working": 780,
+      "insurance": 11000
+    },
+    "turnover": {
+      "average": 145678,
+      "daily": 2456,
+      "perCycle": 1723
+    },
+    "percentage": 10.5,
+    "income": 789,
+    "speed": {
+      "current": 165,
+      "average": 132
+    },
+    "cycles": {
+      "total": 20123,
+      "current": 1012
+    }
+  },
+  {
+    "id": 9345,
+    "name": "TraderTwentyEight",
+    "status": "Оффлайн",
+    "team": "MegaTraders",
+    "group": "Трейдер Coinbase",
+    "created": "2024-06-20T12:08:40Z",
+    "lastActive": "2024-11-12T09:25:15Z",
+    "deals": {
+      "total": 118,
+      "successful": 103,
+      "profitable": 78,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 420,
+      "working": 350,
+      "insurance": 5200
+    },
+    "turnover": {
+      "average": 71234,
+      "daily": 1123,
+      "perCycle": 845
+    },
+    "percentage": 7.1,
+    "income": 378,
+    "speed": {
+      "current": 96,
+      "average": 77
+    },
+    "cycles": {
+      "total": 13456,
+      "current": 678
+    }
+  },
+  {
+    "id": 1045,
+    "name": "TraderTwentyNine",
+    "status": "Активен",
+    "team": "SuperTraders",
+    "group": "Трейдеры Альпари",
+    "created": "2024-08-30T14:22:18Z",
+    "lastActive": "2025-02-10T16:30:45Z",
+    "deals": {
+      "total": 175,
+      "successful": 162,
+      "profitable": 125,
+      "failed": 13
+    },
+    "deposit": {
+      "hold": 760,
+      "working": 670,
+      "insurance": 9800
+    },
+    "turnover": {
+      "average": 123456,
+      "daily": 2098,
+      "perCycle": 1501
+    },
+    "percentage": 9.8,
+    "income": 678,
+    "speed": {
+      "current": 148,
+      "average": 118
+    },
+    "cycles": {
+      "total": 17890,
+      "current": 901
+    }
+  },
+  {
+    "id": 2157,
+    "name": "TraderThirty",
+    "status": "Оффлайн",
+    "team": "AlphaTeam",
+    "group": "Трейдер Alpari",
+    "created": "2024-05-12T11:15:30Z",
+    "lastActive": "2024-10-05T08:40:25Z",
+    "deals": {
+      "total": 96,
+      "successful": 81,
+      "profitable": 61,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 290,
+      "working": 240,
+      "insurance": 3600
+    },
+    "turnover": {
+      "average": 45678,
+      "daily": 734,
+      "perCycle": 556
+    },
+    "percentage": 5.1,
+    "income": 267,
+    "speed": {
+      "current": 85,
+      "average": 68
+    },
+    "cycles": {
+      "total": 9876,
+      "current": 456
+    }
+  },
+  {
+    "id": 3267,
+    "name": "TraderThirtyOne",
+    "status": "Активен",
+    "team": "MegaTraders",
+    "group": "Трейдер Binance",
+    "created": "2024-11-22T16:40:12Z",
+    "lastActive": "2025-02-28T18:20:30Z",
+    "deals": {
+      "total": 206,
+      "successful": 194,
+      "profitable": 152,
+      "failed": 12
+    },
+    "deposit": {
+      "hold": 1020,
+      "working": 920,
+      "insurance": 12500
+    },
+    "turnover": {
+      "average": 167890,
+      "daily": 2890,
+      "perCycle": 2034
+    },
+    "percentage": 11.8,
+    "income": 912,
+    "speed": {
+      "current": 175,
+      "average": 145
+    },
+    "cycles": {
+      "total": 22345,
+      "current": 1123
+    }
+  },
+  {
+    "id": 4379,
+    "name": "TraderThirtyTwo",
+    "status": "Заблокирован",
+    "team": "SuperTraders",
+    "group": "Трейдер Coinbase",
+    "created": "2024-03-05T09:25:40Z",
+    "lastActive": "2024-04-12T11:15:20Z",
+    "deals": {
+      "total": 64,
+      "successful": 49,
+      "profitable": 35,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 150,
+      "working": 118,
+      "insurance": 1800
+    },
+    "turnover": {
+      "average": 23456,
+      "daily": 367,
+      "perCycle": 278
+    },
+    "percentage": 2.2,
+    "income": 123,
+    "speed": {
+      "current": 62,
+      "average": 45
+    },
+    "cycles": {
+      "total": 3456,
+      "current": 167
+    }
+  },
+  {
+    "id": 5489,
+    "name": "TraderThirtyThree",
+    "status": "Активен",
+    "team": "AlphaTeam",
+    "group": "Трейдеры Альпари",
+    "created": "2024-09-10T13:50:25Z",
+    "lastActive": "2025-01-25T15:10:40Z",
+    "deals": {
+      "total": 183,
+      "successful": 169,
+      "profitable": 132,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 820,
+      "working": 730,
+      "insurance": 10500
+    },
+    "turnover": {
+      "average": 134567,
+      "daily": 2289,
+      "perCycle": 1634
+    },
+    "percentage": 10.3,
+    "income": 756,
+    "speed": {
+      "current": 152,
+      "average": 122
+    },
+    "cycles": {
+      "total": 19234,
+      "current": 967
+    }
+  },
+  {
+    "id": 6590,
+    "name": "TraderThirtyFour",
+    "status": "Оффлайн",
+    "team": "MegaTraders",
+    "group": "Трейдер Alpari",
+    "created": "2024-04-18T10:35:15Z",
+    "lastActive": "2024-09-28T12:50:30Z",
+    "deals": {
+      "total": 109,
+      "successful": 94,
+      "profitable": 71,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 360,
+      "working": 295,
+      "insurance": 4400
+    },
+    "turnover": {
+      "average": 58901,
+      "daily": 945,
+      "perCycle": 712
+    },
+    "percentage": 6.3,
+    "income": 312,
+    "speed": {
+      "current": 89,
+      "average": 72
+    },
+    "cycles": {
+      "total": 11567,
+      "current": 589
+    }
+  },
+  {
+    "id": 7601,
+    "name": "TraderThirtyFive",
+    "status": "Активен",
+    "team": "SuperTraders",
+    "group": "Трейдер Binance",
+    "created": "2024-12-10T17:15:45Z",
+    "lastActive": "2025-02-22T19:40:15Z",
+    "deals": {
+      "total": 217,
+      "successful": 205,
+      "profitable": 161,
+      "failed": 12
+    },
+    "deposit": {
+      "hold": 1100,
+      "working": 1000,
+      "insurance": 13500
+    },
+    "turnover": {
+      "average": 178901,
+      "daily": 3123,
+      "perCycle": 2234
+    },
+    "percentage": 12.5,
+    "income": 1023,
+    "speed": {
+      "current": 185,
+      "average": 158
+    },
+    "cycles": {
+      "total": 23456,
+      "current": 1189
+    }
+  },
+  {
+    "id": 8712,
+    "name": "TraderThirtySix",
+    "status": "Оффлайн",
+    "team": "AlphaTeam",
+    "group": "Трейдер Coinbase",
+    "created": "2024-07-25T14:20:30Z",
+    "lastActive": "2024-12-20T10:15:45Z",
+    "deals": {
+      "total": 125,
+      "successful": 110,
+      "profitable": 83,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 480,
+      "working": 405,
+      "insurance": 6000
+    },
+    "turnover": {
+      "average": 78901,
+      "daily": 1289,
+      "perCycle": 967
+    },
+    "percentage": 7.5,
+    "income": 401,
+    "speed": {
+      "current": 103,
+      "average": 83
+    },
+    "cycles": {
+      "total": 14234,
+      "current": 712
+    }
+  },
+  {
+    "id": 9823,
+    "name": "TraderThirtySeven",
+    "status": "Активен",
+    "team": "MegaTraders",
+    "group": "Трейдеры Альпари",
+    "created": "2024-10-28T11:45:20Z",
+    "lastActive": "2025-02-15T14:25:50Z",
+    "deals": {
+      "total": 194,
+      "successful": 181,
+      "profitable": 141,
+      "failed": 13
+    },
+    "deposit": {
+      "hold": 910,
+      "working": 810,
+      "insurance": 11500
+    },
+    "turnover": {
+      "average": 156789,
+      "daily": 2678,
+      "perCycle": 1890
+    },
+    "percentage": 11.1,
+    "income": 834,
+    "speed": {
+      "current": 172,
+      "average": 141
+    },
+    "cycles": {
+      "total": 20987,
+      "current": 1056
+    }
+  },
+  {
+    "id": 1034,
+    "name": "TraderThirtyEight",
+    "status": "Заблокирован",
+    "team": "SuperTraders",
+    "group": "Трейдер Alpari",
+    "created": "2024-02-22T08:30:15Z",
+    "lastActive": "2024-03-28T13:20:40Z",
+    "deals": {
+      "total": 58,
+      "successful": 44,
+      "profitable": 31,
+      "failed": 14
+    },
+    "deposit": {
+      "hold": 135,
+      "working": 105,
+      "insurance": 1600
+    },
+    "turnover": {
+      "average": 21234,
+      "daily": 334,
+      "perCycle": 256
+    },
+    "percentage": 1.9,
+    "income": 98,
+    "speed": {
+      "current": 58,
+      "average": 42
+    },
+    "cycles": {
+      "total": 2987,
+      "current": 145
+    }
+  },
+  {
+    "id": 2145,
+    "name": "TraderThirtyNine",
+    "status": "Активен",
+    "team": "AlphaTeam",
+    "group": "Трейдер Binance",
+    "created": "2024-11-15T15:10:35Z",
+    "lastActive": "2025-02-28T20:15:25Z",
+    "deals": {
+      "total": 208,
+      "successful": 196,
+      "profitable": 154,
+      "failed": 12
+    },
+    "deposit": {
+      "hold": 1080,
+      "working": 980,
+      "insurance": 13200
+    },
+    "turnover": {
+      "average": 172345,
+      "daily": 3012,
+      "perCycle": 2156
+    },
+    "percentage": 12.1,
+    "income": 967,
+    "speed": {
+      "current": 178,
+      "average": 152
+    },
+    "cycles": {
+      "total": 22890,
+      "current": 1156
+    }
+  },
+  {
+    "id": 3256,
+    "name": "TraderForty",
+    "status": "Оффлайн",
+    "team": "MegaTraders",
+    "group": "Трейдер Coinbase",
+    "created": "2024-08-05T12:25:50Z",
+    "lastActive": "2024-11-30T09:40:15Z",
+    "deals": {
+      "total": 132,
+      "successful": 117,
+      "profitable": 89,
+      "failed": 15
+    },
+    "deposit": {
+      "hold": 550,
+      "working": 470,
+      "insurance": 6800
+    },
+    "turnover": {
+      "average": 90123,
+      "daily": 1501,
+      "perCycle": 1123
+    },
+    "percentage": 8.4,
+    "income": 489,
+    "speed": {
+      "current": 112,
+      "average": 91
+    },
+    "cycles": {
+      "total": 16543,
+      "current": 823
+    }
   }
 ]
