@@ -46,6 +46,7 @@ export function DataTable<TData>({
                           ...getColumnPinningStyle({ column: header.column }),
                           width: header.getSize(),
                           minWidth: header.getSize(),
+                          backgroundColor: '#BEBDC81F'
                         }}
                       >
                         {header.isPlaceholder
@@ -77,6 +78,7 @@ export function DataTable<TData>({
                             ...getColumnPinningStyle({ column: cell.column }),
                             width: cell.column.getSize(),
                             minWidth: cell.column.getSize(),
+                            backgroundColor: 'transparent'
                           }}
                         >
                           {flexRender(
