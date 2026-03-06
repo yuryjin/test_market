@@ -1,5 +1,40 @@
 [
   {
+    "id": 3773,
+    "name": "TraderName",
+    "status": "Активен",
+    "team": "MegaTraders",
+    "group": "Трейдеры Альпари",
+    "created": "2024-12-21T21:22:34Z",
+    "lastActive": "2024-12-24T13:34:34Z",
+    "deals": {
+      "total": 104,
+      "successful": 95,
+      "profitable": 67,
+      "failed": 3
+    },
+    "deposit": {
+      "hold": 300,
+      "working": 200,
+      "insurance": 2400
+    },
+    "turnover": {
+      "average": 30000,
+      "daily": 932,
+      "perCycle": 662
+    },
+    "percentage": 5.5,
+    "income": 100,
+    "speed": {
+      "current": 120,
+      "average": 59
+    },
+    "cycles": {
+      "total": 1916,
+      "current": 104
+    }
+  },
+  {
     "id": 5924,
     "name": "TraderOne",
     "status": "Заблокирован",
