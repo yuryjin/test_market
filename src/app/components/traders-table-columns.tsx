@@ -82,6 +82,19 @@ export function getTradersTableColumns({
       filterFn: includesStringFilter,
     },
     {
+      id: "created",
+      accessorKey: "created",
+      header: () => null,
+      cell: () => null,
+      enableColumnFilter: true,
+      filterFn: (row, columnId, filterValue) => {
+        if (!filterValue) return true;
+        const created = new Date(row.getValue(columnId) as string);
+        const filterDate = new Date(filterValue as string);
+        return created.toDateString() === filterDate.toDateString();
+      },
+    },
+    {
       id: "team",
       accessorKey: "team",
       header: ({ column }) => (
@@ -162,6 +175,7 @@ export function getTradersTableColumns({
     },
     {
       id: "requisites-deals",
+      accessorFn: (row) => row.deals.total,
       header: "Реквизиты / Сделки",
       cell: ({ row }) => {
         const trader = row.original;
@@ -205,6 +219,15 @@ export function getTradersTableColumns({
         label: "Реквизиты / Сделки",
       },
       enableSorting: false,
+      enableColumnFilter: true,
+      filterFn: (row, columnId, filterValue) => {
+        if (!filterValue || typeof filterValue !== "object") return true;
+        const filter = filterValue as { from?: number; to?: number };
+        const dealsTotal = row.getValue(columnId) as number;
+        if (filter.from !== undefined && dealsTotal < filter.from) return false;
+        if (filter.to !== undefined && dealsTotal > filter.to) return false;
+        return true;
+      },
     },
     {
       id: "deposit-turnover",
@@ -276,6 +299,15 @@ export function getTradersTableColumns({
         label: "Процент / Доход",
       },
       enableSorting: false,
+      enableColumnFilter: true,
+      filterFn: (row, columnId, filterValue) => {
+        if (!filterValue || typeof filterValue !== "object") return true;
+        const filter = filterValue as { from?: number; to?: number };
+        const percentage = row.getValue(columnId) as number;
+        if (filter.from !== undefined && percentage < filter.from) return false;
+        if (filter.to !== undefined && percentage > filter.to) return false;
+        return true;
+      },
     },
     {
       id: "speed",
