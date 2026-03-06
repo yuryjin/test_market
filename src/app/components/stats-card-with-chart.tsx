@@ -74,7 +74,7 @@ export function StatsCardWithChart({
     : "0,90 100,90"; // Fallback для пустого состояния
 
   return (
-    <div className="rounded-lg border bg-card p-6">
+    <div className="rounded-lg bg-[#BEBDC81F] p-6">
       <div className="flex flex-col gap-1 mb-4">
         <div className="text-3xl font-bold">{value}</div>
         <div className="text-sm text-muted-foreground">{subtitle}</div>
