@@ -154,7 +154,7 @@ export function DataTableFilterPanel<TData>({
 
           {/* Статус Section */}
           <div className="space-y-3">
-            <h3 className="text-sm">Статус</h3>
+            <h3 className="text-sm mb-2">Статус</h3>
             <div className="flex gap-2 flex-wrap border rounded-md p-1">
               {["Любой", "Активен", "Оффлайн", "Блок"].map((status) => {
                 const isSelected =
@@ -181,8 +181,8 @@ export function DataTableFilterPanel<TData>({
           {/* <Separator /> */}
 
           {/* Проценты Section */}
-          <div className="space-y-3">
-            <h3 className="text-sm">Проценты</h3>
+          <div className="space-y-3 mb-10">
+            <h3 className="text-sm mb-1.75">Проценты</h3>
             <div className="flex gap-2">
               <div className="flex-1">
                 <label className="text-xs text-muted-foreground mb-1 block">
