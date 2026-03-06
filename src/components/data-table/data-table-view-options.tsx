@@ -45,10 +45,7 @@ export function DataTableViewOptions<TData>({
     () =>
       table
         .getAllColumns()
-        .filter(
-          (column) =>
-            typeof column.accessorFn !== "undefined" && column.getCanHide(),
-        ),
+        .filter((column) => column.getCanHide()),
     [table],
   );
 
@@ -164,8 +161,8 @@ export function DataTableViewOptions<TData>({
               getItemValue={(id) => id}
               orientation="vertical"
             >
-              <SortableContent className="flex flex-col gap-2">
-                {sortedColumns.map((column) => {
+              <SortableContent className="flex flex-col">
+                {sortedColumns.map((column, index) => {
                   const label =
                     column.columnDef.meta?.label ?? column.id;
                   const isVisible = column.getIsVisible();
@@ -174,13 +171,16 @@ export function DataTableViewOptions<TData>({
                     <SortableItem
                       key={column.id}
                       value={column.id}
-                      className="flex items-center gap-3 rounded-md border p-3 hover:bg-muted/50 transition-colors"
+                      className={cn(
+                        "flex items-center gap-3 border-b last:border-b-0 py-3",
+                        "hover:bg-muted/50 transition-colors"
+                      )}
                     >
                       <SortableItemHandle asChild>
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-6 w-6 cursor-grab active:cursor-grabbing"
+                          className="h-6 w-6 cursor-grab active:cursor-grabbing shrink-0"
                         >
                           <GripVertical className="h-4 w-4 text-muted-foreground" />
                         </Button>

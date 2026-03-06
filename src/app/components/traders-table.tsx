@@ -50,6 +50,9 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
       pagination: {
         pageSize: 10,
       },
+      columnVisibility: {
+        merchant: false, // По умолчанию скрыта
+      },
     },
     queryKeys,
     getRowId: (originalRow) => String(originalRow.id),

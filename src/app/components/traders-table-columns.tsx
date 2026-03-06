@@ -65,7 +65,7 @@ export function getTradersTableColumns({
         );
       },
       meta: {
-        label: "Трейдер",
+        label: "Трейдер/ID / Создан",
         placeholder: "Поиск трейдеров...",
         variant: "text",
       },
@@ -75,7 +75,7 @@ export function getTradersTableColumns({
       id: "team",
       accessorKey: "team",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label="Команда /Группа" />
+        <DataTableColumnHeader column={column} label="Команда / Группа" />
       ),
       cell: ({ row }) => {
         const trader = row.original;
@@ -87,7 +87,7 @@ export function getTradersTableColumns({
         );
       },
       meta: {
-        label: "Команда",
+        label: "Команда / Группа",
         variant: "text",
       },
       enableColumnFilter: true,
@@ -96,7 +96,7 @@ export function getTradersTableColumns({
       id: "status",
       accessorKey: "status",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} label="Статус/Посл. акт." />
+        <DataTableColumnHeader column={column} label="Статус / Активность" />
       ),
       cell: ({ row }) => {
         const trader = row.original;
@@ -120,7 +120,7 @@ export function getTradersTableColumns({
         );
       },
       meta: {
-        label: "Статус",
+        label: "Статус / Активность",
         variant: "multiSelect",
         options: (["Активен", "Оффлайн", "Заблокирован"] as const).map(
           (status) => ({
@@ -134,17 +134,13 @@ export function getTradersTableColumns({
       enableColumnFilter: true,
     },
     {
-      id: "requisites",
-      header: "Реквизиты",
+      id: "requisites-deals",
+      header: "Реквизиты / Сделки",
       cell: ({ row }) => {
         const trader = row.original;
-        // Вычисляем реквизиты на основе данных
-        // Акт. (Активные) - можно использовать cycles.current
-        // Авт. (Авторизованные) - можно использовать deals.successful
-        // Всего - сумма
         const active = trader.cycles.current;
         const authorized = trader.deals.successful;
-        const total = active + authorized;
+        const totalRequisites = active + authorized;
         return (
           <div className="flex gap-4">
             <div className="flex flex-col">
@@ -157,20 +153,8 @@ export function getTradersTableColumns({
             </div>
             <div className="flex flex-col">
               <span className="text-xs text-muted-foreground">Всего</span>
-              <span className="font-bold">{total}</span>
+              <span className="font-bold">{totalRequisites}</span>
             </div>
-          </div>
-        );
-      },
-      enableSorting: false,
-    },
-    {
-      id: "deals",
-      header: "Сделки",
-      cell: ({ row }) => {
-        const trader = row.original;
-        return (
-          <div className="flex gap-4">
             <div className="flex flex-col">
               <span className="text-xs text-muted-foreground">Усп.</span>
               <span className="font-medium">{trader.deals.successful}</span>
@@ -190,11 +174,14 @@ export function getTradersTableColumns({
           </div>
         );
       },
+      meta: {
+        label: "Реквизиты / Сделки",
+      },
       enableSorting: false,
     },
     {
-      id: "deposit",
-      header: "Депозит",
+      id: "deposit-turnover",
+      header: "Депозит / Оборот",
       cell: ({ row }) => {
         const trader = row.original;
         return (
@@ -217,18 +204,6 @@ export function getTradersTableColumns({
                 {formatCurrency(trader.deposit.insurance)}
               </span>
             </div>
-          </div>
-        );
-      },
-      enableSorting: false,
-    },
-    {
-      id: "turnover",
-      header: "Оборот",
-      cell: ({ row }) => {
-        const trader = row.original;
-        return (
-          <div className="flex gap-4">
             <div className="flex flex-col">
               <span className="text-xs text-muted-foreground">Всего</span>
               <span className="font-medium">
@@ -244,7 +219,134 @@ export function getTradersTableColumns({
           </div>
         );
       },
+      meta: {
+        label: "Депозит / Оборот",
+      },
       enableSorting: false,
+    },
+    {
+      id: "percentage",
+      accessorKey: "percentage",
+      header: "Процент / Доход",
+      cell: ({ row }) => {
+        const trader = row.original;
+        return (
+          <div className="flex gap-4">
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Процент</span>
+              <span className="font-medium">{trader.percentage}%</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Доход</span>
+              <span className="font-medium">
+                {formatCurrency(trader.income)}
+              </span>
+            </div>
+          </div>
+        );
+      },
+      meta: {
+        label: "Процент / Доход",
+      },
+      enableSorting: false,
+    },
+    {
+      id: "speed",
+      header: "Скор. транзакций / Рабочие циклы",
+      cell: ({ row }) => {
+        const trader = row.original;
+        return (
+          <div className="flex gap-4">
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Текущая</span>
+              <span className="font-medium">{trader.speed.current}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Средняя</span>
+              <span className="font-medium">{trader.speed.average}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Циклы</span>
+              <span className="font-medium">{trader.cycles.current}</span>
+            </div>
+          </div>
+        );
+      },
+      meta: {
+        label: "Скор. транзакций / Рабочие циклы",
+      },
+      enableSorting: false,
+    },
+    {
+      id: "limits",
+      header: "Лимит на сделку / Лимит авто",
+      cell: () => {
+        // Заглушка - данных нет в JSON
+        return (
+          <div className="flex gap-4">
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">На сделку</span>
+              <span className="font-medium">-</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Авто</span>
+              <span className="font-medium">-</span>
+            </div>
+          </div>
+        );
+      },
+      meta: {
+        label: "Лимит на сделку / Лимит авто",
+      },
+      enableSorting: false,
+    },
+    {
+      id: "conversion",
+      header: "Конверсия / Конверсия авто",
+      cell: () => {
+        // Заглушка - данных нет в JSON
+        return (
+          <div className="flex gap-4">
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Конверсия</span>
+              <span className="font-medium">-</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Авто</span>
+              <span className="font-medium">-</span>
+            </div>
+          </div>
+        );
+      },
+      meta: {
+        label: "Конверсия / Конверсия авто",
+      },
+      enableSorting: false,
+    },
+    {
+      id: "merchant",
+      header: "Мерчант / График работы",
+      cell: () => {
+        // Заглушка - данных нет в JSON
+        return (
+          <div className="flex gap-4">
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Мерчант</span>
+              <span className="font-medium">-</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">График</span>
+              <span className="font-medium">-</span>
+            </div>
+          </div>
+        );
+      },
+      meta: {
+        label: "Мерчант / График работы",
+      },
+      enableSorting: false,
+      // По умолчанию скрыта
+      enableHiding: true,
     },
   ];
 }
