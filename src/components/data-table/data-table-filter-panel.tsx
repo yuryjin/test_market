@@ -6,9 +6,17 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerClose,
+} from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import type { Trader } from "@/types/trader";
 import { MultiselectCombobox } from "./multiselect-combobox";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 interface DataTableFilterPanelProps<TData> {
   table: Table<TData>;
@@ -21,6 +29,7 @@ export function DataTableFilterPanel<TData>({
   open,
   onOpenChange,
 }: DataTableFilterPanelProps<TData>) {
+  const isMobile = useMediaQuery("(max-width: 639px)");
   const [selectedView, setSelectedView] = React.useState<"all" | "selected">("all");
   const [expandedSections, setExpandedSections] = React.useState<Set<string>>(
     new Set(),
@@ -318,18 +327,12 @@ export function DataTableFilterPanel<TData>({
     }
   }, [statusColumn]);
 
-  return (
-    <div
-      className={cn(
-        "absolute top-0 left-0 w-80 bg-[#BEBDC81F] rounded-[26px] border-r z-50 flex flex-col shadow-lg transition-all duration-300 ease-in-out h-full",
-        open
-          ? "opacity-100 translate-x-0 pointer-events-auto"
-          : "opacity-0 -translate-x-full pointer-events-none",
-      )}
-    >
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 pb-0">
-          <h2 className="text-[24px] leading-[27px] tracking-normal font-medium">Фильтры</h2>
+  const FilterPanelContent = ({ showCloseButton = false, showApplyButton = false }: { showCloseButton?: boolean; showApplyButton?: boolean }) => (
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 pb-0 shrink-0">
+        <h2 className="text-[24px] leading-[27px] tracking-normal font-medium">Фильтры</h2>
+        <div className="flex items-center gap-2">
           <div className="flex bg-[#BEBDC814] rounded-[12px]">
             <Button
               variant={selectedView === "all" ? "inverted" : "ghost"}
@@ -348,10 +351,19 @@ export function DataTableFilterPanel<TData>({
               Выбранные
             </Button>
           </div>
+          {/* Кнопка закрытия для мобильных */}
+          {showCloseButton && (
+            <DrawerClose asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <X className="h-4 w-4" />
+              </Button>
+            </DrawerClose>
+          )}
         </div>
+      </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3 pt-6">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3 pt-6 min-h-0">
           {selectedView === "selected" ? (
             /* Режим "Выбранные" - показываем только активные фильтры */
             <div className="space-y-3">
@@ -843,7 +855,54 @@ export function DataTableFilterPanel<TData>({
             </>
           )}
         </div>
-      </div>
+        
+        {/* Кнопка "Применить" для мобильной версии */}
+        {showApplyButton && (
+          <div className="p-4 border-t shrink-0">
+            <DrawerClose asChild>
+              <Button
+                className="w-full h-10 rounded-lg font-medium"
+                style={{
+                  backgroundColor: "#8973FA",
+                  color: "#FFFFFF",
+                }}
+              >
+                Применить
+              </Button>
+            </DrawerClose>
+          </div>
+        )}
+    </div>
+  );
+
+  return (
+    <>
+      {/* Мобильная версия - Drawer (ТОЛЬКО на мобильных, т.е. < 640px) */}
+      {isMobile && (
+        <Drawer open={open} onOpenChange={onOpenChange} direction="bottom">
+          <DrawerContent 
+            className="h-[80vh] max-h-[80vh] w-full rounded-t-[26px] rounded-b-none border-t flex flex-col p-0 mt-0 inset-x-0 bottom-0" 
+            // style={{ opacity: 1, backgroundColor: '#BEBDC81F' }}
+          >
+            <FilterPanelContent showCloseButton={true} showApplyButton={true} />
+          </DrawerContent>
+        </Drawer>
+      )}
+
+      {/* Десктопная версия - Sidebar (sm и выше, т.е. >= 640px) */}
+      {!isMobile && (
+        <div
+          className={cn(
+            "absolute top-0 left-0 w-80 bg-[#BEBDC81F] rounded-[26px] border-r z-50 flex flex-col shadow-lg transition-all duration-300 ease-in-out h-full",
+            open
+              ? "opacity-100 translate-x-0 pointer-events-auto"
+              : "opacity-0 -translate-x-full pointer-events-none",
+          )}
+        >
+          <FilterPanelContent showCloseButton={false} />
+        </div>
+      )}
+    </>
   );
 }
 

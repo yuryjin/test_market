@@ -83,7 +83,7 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
       <div
         className={cn(
           "transition-all duration-300",
-          filterPanelOpen && "md:ml-[330px]", // 320px (w-80) панель + 10px отступ между панелью и таблицей (только на десктопе)
+          filterPanelOpen && "sm:ml-[330px]", // 320px (w-80) панель + 10px отступ между панелью и таблицей (только на sm и выше, где показывается Sidebar)
         )}
       >
         {/* Мобильная версия - карточки */}
