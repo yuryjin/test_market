@@ -4,6 +4,37 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "PT Root UI";
+  src: url("/src/assets/fonts/pt-root-ui_regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PT Root UI";
+  src: url("/src/assets/fonts/pt-root-ui_medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PT Root UI";
+  src: url("/src/assets/fonts/pt-root-ui_bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body {
+  background-color: #04030D;
+  font-family: "PT Root UI";
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
