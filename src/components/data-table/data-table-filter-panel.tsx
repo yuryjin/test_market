@@ -85,7 +85,7 @@ export function DataTableFilterPanel<TData>({
               onClick={() => setSelectedView("selected")}
               className="h-7 text-xs"
             >
-              Выбранн
+              Выбранные
             </Button>
           </div>
         </div>
