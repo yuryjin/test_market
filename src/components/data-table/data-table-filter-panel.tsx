@@ -356,80 +356,207 @@ export function DataTableFilterPanel<TData>({
             /* Режим "Выбранные" - показываем только активные фильтры */
             <div className="space-y-3">
               <h3 className="font-semibold text-sm mb-3">Активные фильтры</h3>
-              <div className="flex flex-col gap-2">
-                {statusFilter && statusFilter.length > 0 && (
-                  <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>Статус: {statusFilter.join(", ")}</span>
-                    <button onClick={removeStatusFilter} className="hover:opacity-70 ml-auto">
+              {activeFiltersCount === 0 ? (
+                <div className="text-sm text-muted-foreground text-center py-4">
+                  Нет активных фильтров
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {/* Кнопка "Очистить всё" */}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      removeTraderFilter();
+                      removeTeamFilter();
+                      removeGroupFilter();
+                      removePercentageFilter();
+                      removeDealsFilter();
+                      removeStatusFilter();
+                    }}
+                    className="h-7 text-xs"
+                    style={{
+                      backgroundColor: "#BEBDC81F",
+                      color: "#F8F8FF",
+                      borderColor: "transparent",
+                    }}
+                  >
+                    Очистить всё
+                  </Button>
+                  
+                  {/* Фильтр по статусу */}
+                  {statusFilter && statusFilter.length > 0 && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={removeStatusFilter}
+                      className="h-7 text-xs flex items-center gap-1"
+                      style={{
+                        backgroundColor: "#8973FA4D",
+                        color: "#F8F8FF",
+                        borderColor: "transparent",
+                      }}
+                    >
+                      <span>Статус: {statusFilter.join(", ")}</span>
                       <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                )}
-                {traderFilter && (
-                  <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>
-                      Трейдер:{" "}
-                      {Array.isArray(traderFilter)
-                        ? traderFilter.join(", ")
-                        : traderFilter}
-                    </span>
-                    <button onClick={removeTraderFilter} className="hover:opacity-70 ml-auto">
+                    </Button>
+                  )}
+                  
+                  {/* Фильтр по трейдерам */}
+                  {traderFilter && (
+                    Array.isArray(traderFilter) ? (
+                      traderFilter.map((trader) => (
+                        <Button
+                          key={trader}
+                          variant="outline"
+                          size="sm"
+                          onClick={removeTraderFilter}
+                          className="h-7 text-xs flex items-center gap-1"
+                          style={{
+                            backgroundColor: "#8973FA4D",
+                            color: "#F8F8FF",
+                            borderColor: "transparent",
+                          }}
+                        >
+                          <span>{trader}</span>
+                          <X className="h-3 w-3" />
+                        </Button>
+                      ))
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={removeTraderFilter}
+                        className="h-7 text-xs flex items-center gap-1"
+                        style={{
+                          backgroundColor: "#8973FA4D",
+                          color: "#F8F8FF",
+                          borderColor: "transparent",
+                        }}
+                      >
+                        <span>{traderFilter}</span>
+                        <X className="h-3 w-3" />
+                      </Button>
+                    )
+                  )}
+                  
+                  {/* Фильтр по командам */}
+                  {teamFilterValue && (
+                    Array.isArray(teamFilterValue) ? (
+                      teamFilterValue.map((team) => (
+                        <Button
+                          key={team}
+                          variant="outline"
+                          size="sm"
+                          onClick={removeTeamFilter}
+                          className="h-7 text-xs flex items-center gap-1"
+                          style={{
+                            backgroundColor: "#8973FA4D",
+                            color: "#F8F8FF",
+                            borderColor: "transparent",
+                          }}
+                        >
+                          <span>Команда: {team}</span>
+                          <X className="h-3 w-3" />
+                        </Button>
+                      ))
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={removeTeamFilter}
+                        className="h-7 text-xs flex items-center gap-1"
+                        style={{
+                          backgroundColor: "#8973FA4D",
+                          color: "#F8F8FF",
+                          borderColor: "transparent",
+                        }}
+                      >
+                        <span>Команда: {teamFilterValue}</span>
+                        <X className="h-3 w-3" />
+                      </Button>
+                    )
+                  )}
+                  
+                  {/* Фильтр по группам */}
+                  {groupFilterValue && (
+                    Array.isArray(groupFilterValue) ? (
+                      groupFilterValue.map((group) => (
+                        <Button
+                          key={group}
+                          variant="outline"
+                          size="sm"
+                          onClick={removeGroupFilter}
+                          className="h-7 text-xs flex items-center gap-1"
+                          style={{
+                            backgroundColor: "#8973FA4D",
+                            color: "#F8F8FF",
+                            borderColor: "transparent",
+                          }}
+                        >
+                          <span>Группа: {group}</span>
+                          <X className="h-3 w-3" />
+                        </Button>
+                      ))
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={removeGroupFilter}
+                        className="h-7 text-xs flex items-center gap-1"
+                        style={{
+                          backgroundColor: "#8973FA4D",
+                          color: "#F8F8FF",
+                          borderColor: "transparent",
+                        }}
+                      >
+                        <span>Группа: {groupFilterValue}</span>
+                        <X className="h-3 w-3" />
+                      </Button>
+                    )
+                  )}
+                  
+                  {/* Фильтр по процентам */}
+                  {(percentageFilter?.from !== undefined || percentageFilter?.to !== undefined) && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={removePercentageFilter}
+                      className="h-7 text-xs flex items-center gap-1"
+                      style={{
+                        backgroundColor: "#8973FA4D",
+                        color: "#F8F8FF",
+                        borderColor: "transparent",
+                      }}
+                    >
+                      <span>
+                        Процент: от {percentageFilter.from ?? "0"} до {percentageFilter.to ?? "∞"}
+                      </span>
                       <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                )}
-                {teamFilterValue && (
-                  <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>
-                      Команда:{" "}
-                      {Array.isArray(teamFilterValue)
-                        ? teamFilterValue.join(", ")
-                        : teamFilterValue}
-                    </span>
-                    <button onClick={removeTeamFilter} className="hover:opacity-70 ml-auto">
+                    </Button>
+                  )}
+                  
+                  {/* Фильтр по сделкам */}
+                  {(dealsFilter?.from !== undefined || dealsFilter?.to !== undefined) && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={removeDealsFilter}
+                      className="h-7 text-xs flex items-center gap-1"
+                      style={{
+                        backgroundColor: "#8973FA4D",
+                        color: "#F8F8FF",
+                        borderColor: "transparent",
+                      }}
+                    >
+                      <span>
+                        Реквизиты все: от {dealsFilter.from ?? "0"} до {dealsFilter.to ?? "∞"}
+                      </span>
                       <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                )}
-                {groupFilterValue && (
-                  <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>
-                      Группа:{" "}
-                      {Array.isArray(groupFilterValue)
-                        ? groupFilterValue.join(", ")
-                        : groupFilterValue}
-                    </span>
-                    <button onClick={removeGroupFilter} className="hover:opacity-70 ml-auto">
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                )}
-                {(percentageFilter?.from !== undefined || percentageFilter?.to !== undefined) && (
-                  <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>
-                      Проценты: {percentageFilter.from ?? "0"} - {percentageFilter.to ?? "∞"}
-                    </span>
-                    <button onClick={removePercentageFilter} className="hover:opacity-70 ml-auto">
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                )}
-                {(dealsFilter?.from !== undefined || dealsFilter?.to !== undefined) && (
-                  <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>
-                      Сделки: {dealsFilter.from ?? "0"} - {dealsFilter.to ?? "∞"}
-                    </span>
-                    <button onClick={removeDealsFilter} className="hover:opacity-70 ml-auto">
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                )}
-                {activeFiltersCount === 0 && (
-                  <div className="text-sm text-muted-foreground text-center py-4">
-                    Нет активных фильтров
-                  </div>
-                )}
-              </div>
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
           ) : (
             /* Режим "Все" - показываем все фильтры */
