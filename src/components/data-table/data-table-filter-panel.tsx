@@ -150,7 +150,7 @@ export function DataTableFilterPanel<TData>({
             </div>
           </div>
 
-          <Separator />
+          {/* <Separator /> */}
 
           {/* Статус Section */}
           <div className="space-y-3">
@@ -178,7 +178,7 @@ export function DataTableFilterPanel<TData>({
             </div>
           </div>
 
-          <Separator />
+          {/* <Separator /> */}
 
           {/* Проценты Section */}
           <div className="space-y-3">
@@ -219,7 +219,7 @@ export function DataTableFilterPanel<TData>({
             </div>
           </div>
 
-          <Separator />
+          {/* <Separator /> */}
 
           {/* Сделки и финансы Section */}
           <div className="space-y-3">
