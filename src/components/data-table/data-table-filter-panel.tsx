@@ -121,7 +121,7 @@ export function DataTableFilterPanel<TData>({
               </div>
               <FilterSection
                 title="Создан"
-                icon={<Calendar className="h-5 w-5" />}
+                icon={<Calendar className="h-4 w-4" />}
                 expanded={expandedSections.has("created")}
                 onToggle={() => toggleSection("created")}
               >
@@ -300,7 +300,7 @@ function FilterSection({
     <div className="border rounded-md">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-2 hover:bg-muted/50 transition-colors"
+        className="w-full flex items-center justify-between p-2 bg-[#BEBDC814] hover:bg-muted/50 transition-colors"
       >
         <div className="flex items-center gap-2">
           <span className="text-sm">{title}</span>
