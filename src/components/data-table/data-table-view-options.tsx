@@ -1,7 +1,7 @@
 "use client";
 
 import type { Table } from "@tanstack/react-table";
-import { Check, Settings2 } from "lucide-react";
+import { Check, Settings2, SettingsIcon } from "lucide-react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,11 +49,11 @@ export function DataTableViewOptions<TData>({
           role="combobox"
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-8 font-normal lg:flex"
+          className="ml-auto hidden h-8 font-normal lg:flex bg-transparent border-none"
           disabled={disabled}
+          style={{ background: 'transparent' }}
         >
-          <Settings2 className="text-muted-foreground" />
-          View
+          <SettingsIcon className="text-muted-foreground" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-44 p-0" {...props}>
