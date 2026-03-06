@@ -82,7 +82,7 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
       <div
         className={cn(
           "transition-all duration-300",
-          filterPanelOpen && "ml-[330px]",
+          filterPanelOpen && "ml-[330px]", // 320px (w-80) панель + 10px отступ между панелью и таблицей
         )}
       >
         <DataTable table={table}>
