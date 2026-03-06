@@ -94,7 +94,7 @@ export function DataTableFilterPanel<TData>({
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
           {/* Трейдер Section */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-sm">Трейдер</h3>
+            <h3 className="font-semibold text-[18px] leading-[22px] tracking-normal">Трейдер</h3>
             <div className="space-y-2">
               <div className="flex gap-2 flex-wrap">
                 <div className="flex items-center gap-1 px-2 py-1 bg-muted rounded-md text-sm">
