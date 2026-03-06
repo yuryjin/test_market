@@ -95,7 +95,7 @@ export function TradersStatsCard({ stats }: TradersStatsCardProps) {
   }
 
   return (
-    <div className="rounded-lg bg-[#BEBDC81F] p-6">
+    <div className="rounded-lg bg-[#BEBDC81F] p-6 w-[220px] h-[210px]">
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-1">
           <div className="text-3xl font-bold">{total}</div>
