@@ -42,7 +42,7 @@ html, body {
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #8973FA;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -191,4 +191,17 @@ html, body {
   @media (max-width: 640px) {
     @apply px-4;
   }
+}
+
+input {
+  background-color: #BEBDC814 !important;
+}
+
+button {
+  /* background-color: #BEBDC814; */
+  border-radius: 12px;
+}
+
+.rounded-md {
+  border-radius: 12px;
 }

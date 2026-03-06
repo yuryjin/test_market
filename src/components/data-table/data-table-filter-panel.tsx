@@ -166,7 +166,7 @@ export function DataTableFilterPanel<TData>({
                 return (
                   <Button
                     key={status}
-                    variant={isSelected ? "default" : "ghost"}
+                    variant={isSelected ? "active" : "ghost"}
                     size="sm"
                     onClick={() => onStatusChange(status)}
                     className="h-7 text-xs flex-1"
