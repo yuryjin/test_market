@@ -176,7 +176,7 @@ export function DataTableSortList<TData>({
             disabled={disabled}
           >
             <ArrowDownUp className="text-muted-foreground" />
-            Sort
+            Сортировка
             {sorting.length > 0 && (
               <Badge
                 variant="secondary"
@@ -195,7 +195,7 @@ export function DataTableSortList<TData>({
         >
           <div className="flex flex-col gap-1">
             <h4 id={labelId} className="font-medium leading-none">
-              {sorting.length > 0 ? "Sort by" : "No sorting applied"}
+              {sorting.length > 0 ? "Сортировать по" : "Сортировка не применена"}
             </h4>
             <p
               id={descriptionId}
@@ -205,8 +205,8 @@ export function DataTableSortList<TData>({
               )}
             >
               {sorting.length > 0
-                ? "Modify sorting to organize your rows."
-                : "Add sorting to organize your rows."}
+                ? "Измените сортировку для организации строк."
+                : "Добавьте сортировку для организации строк."}
             </p>
           </div>
           {sorting.length > 0 && (
@@ -237,7 +237,7 @@ export function DataTableSortList<TData>({
               onClick={onSortAdd}
               disabled={columns.length === 0}
             >
-              Add sort
+              Добавить сортировку
             </Button>
             {sorting.length > 0 && (
               <Button
@@ -246,7 +246,7 @@ export function DataTableSortList<TData>({
                 className="rounded"
                 onClick={onSortingReset}
               >
-                Reset sorting
+                Сбросить сортировку
               </Button>
             )}
           </div>
@@ -337,9 +337,9 @@ function DataTableSortItem({
             className="w-(--radix-popover-trigger-width) p-0"
           >
             <Command>
-              <CommandInput placeholder="Search fields..." />
+              <CommandInput placeholder="Поиск полей..." />
               <CommandList>
-                <CommandEmpty>No fields found.</CommandEmpty>
+                <CommandEmpty>Поля не найдены.</CommandEmpty>
                 <CommandGroup>
                   {columns.map((column) => (
                     <CommandItem

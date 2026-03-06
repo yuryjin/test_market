@@ -231,7 +231,7 @@ export function DataTableFilterList<TData>({
             disabled={disabled}
           >
             <ListFilter className="text-muted-foreground" />
-            Filter
+            Фильтр
             {filters.length > 0 && (
               <Badge
                 variant="secondary"
@@ -250,7 +250,7 @@ export function DataTableFilterList<TData>({
         >
           <div className="flex flex-col gap-1">
             <h4 id={labelId} className="font-medium leading-none">
-              {filters.length > 0 ? "Filters" : "No filters applied"}
+              {filters.length > 0 ? "Фильтры" : "Фильтры не применены"}
             </h4>
             <p
               id={descriptionId}
@@ -260,8 +260,8 @@ export function DataTableFilterList<TData>({
               )}
             >
               {filters.length > 0
-                ? "Modify filters to refine your rows."
-                : "Add filters to refine your rows."}
+                ? "Измените фильтры для уточнения строк."
+                : "Добавьте фильтры для уточнения строк."}
             </p>
           </div>
           {filters.length > 0 ? (
@@ -293,7 +293,7 @@ export function DataTableFilterList<TData>({
               ref={addButtonRef}
               onClick={onFilterAdd}
             >
-              Add filter
+              Добавить фильтр
             </Button>
             {filters.length > 0 ? (
               <Button
@@ -302,7 +302,7 @@ export function DataTableFilterList<TData>({
                 className="rounded"
                 onClick={onFiltersReset}
               >
-                Reset filters
+                Сбросить фильтры
               </Button>
             ) : null}
           </div>
@@ -453,9 +453,9 @@ function DataTableFilterItem<TData>({
             className="w-40 p-0"
           >
             <Command>
-              <CommandInput placeholder="Search fields..." />
+              <CommandInput placeholder="Поиск полей..." />
               <CommandList>
-                <CommandEmpty>No fields found.</CommandEmpty>
+                <CommandEmpty>Поля не найдены.</CommandEmpty>
                 <CommandGroup>
                   {columns.map((column) => (
                     <CommandItem
@@ -580,8 +580,8 @@ function onFilterInputRender<TData>({
       <div
         id={inputId}
         role="status"
-        aria-label={`${columnMeta?.label} filter is ${
-          filter.operator === "isEmpty" ? "empty" : "not empty"
+        aria-label={`Фильтр ${columnMeta?.label} ${
+          filter.operator === "isEmpty" ? "пусто" : "не пусто"
         }`}
         aria-live="polite"
         className="h-8 w-full rounded border bg-transparent dark:bg-input/30"
@@ -709,11 +709,11 @@ function onFilterInputRender<TData>({
           </FacetedTrigger>
           <FacetedContent id={inputListboxId} className="w-[200px]">
             <FacetedInput
-              aria-label={`Search ${columnMeta?.label} options`}
-              placeholder={columnMeta?.placeholder ?? "Search options..."}
+              aria-label={`Поиск вариантов ${columnMeta?.label}`}
+              placeholder={columnMeta?.placeholder ?? "Поиск вариантов..."}
             />
             <FacetedList>
-              <FacetedEmpty>No options found.</FacetedEmpty>
+              <FacetedEmpty>Варианты не найдены.</FacetedEmpty>
               <FacetedGroup>
                 {columnMeta?.options?.map((option) => (
                   <FacetedItem key={option.value} value={option.value}>

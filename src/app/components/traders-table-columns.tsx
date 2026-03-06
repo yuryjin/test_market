@@ -24,7 +24,7 @@ export function getTradersTableColumns({
       id: "select",
       header: ({ table }) => (
         <Checkbox
-          aria-label="Select all"
+          aria-label="Выбрать все"
           className="translate-y-0.5"
           checked={
             table.getIsAllPageRowsSelected() ||
@@ -35,7 +35,7 @@ export function getTradersTableColumns({
       ),
       cell: ({ row }) => (
         <Checkbox
-          aria-label="Select row"
+          aria-label="Выбрать строку"
           className="translate-y-0.5"
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
