@@ -18,6 +18,7 @@ import type {
 } from "../lib/traders-queries";
 import { useFeatureFlags } from "./feature-flags-provider";
 import { getTradersTableColumns } from "./traders-table-columns";
+import { TradersCardList } from "./traders-card-list";
 import { cn } from "@/lib/utils";
 
 interface TradersTableProps {
@@ -73,7 +74,7 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
   );
 
   return (
-    <div className="relative w-[1351px] mt-4 md:mt-2.5 h-[815px]">
+    <div className="relative w-full max-w-[1351px] mt-4 md:mt-2.5 min-h-[400px] md:h-[815px]">
       <DataTableFilterPanel
         table={table}
         open={filterPanelOpen}
@@ -82,10 +83,11 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
       <div
         className={cn(
           "transition-all duration-300",
-          filterPanelOpen && "ml-[330px]", // 320px (w-80) панель + 10px отступ между панелью и таблицей
+          filterPanelOpen && "md:ml-[330px]", // 320px (w-80) панель + 10px отступ между панелью и таблицей (только на десктопе)
         )}
       >
-        <DataTable table={table}>
+        {/* Мобильная версия - карточки */}
+        <div className="block md:hidden">
           {enableAdvancedFilter ? (
             <DataTableAdvancedToolbar table={table} filterToggle={filterToggle}>
               <DataTableSortList table={table} align="start" />
@@ -111,7 +113,41 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
               <DataTableSortList table={table} align="end" />
             </DataTableToolbar>
           )}
-        </DataTable>
+          <div className="overflow-y-auto max-h-[calc(100vh-200px)] px-4 pb-4">
+            <TradersCardList table={table} />
+          </div>
+        </div>
+
+        {/* Планшет и десктоп - таблица */}
+        <div className="hidden md:block h-full">
+          <DataTable table={table}>
+            {enableAdvancedFilter ? (
+              <DataTableAdvancedToolbar table={table} filterToggle={filterToggle}>
+                <DataTableSortList table={table} align="start" />
+                {filterFlag === "advancedFilters" ? (
+                  <DataTableFilterList
+                    table={table}
+                    shallow={shallow}
+                    debounceMs={debounceMs}
+                    throttleMs={throttleMs}
+                    align="start"
+                  />
+                ) : (
+                  <DataTableFilterMenu
+                    table={table}
+                    shallow={shallow}
+                    debounceMs={debounceMs}
+                    throttleMs={throttleMs}
+                  />
+                )}
+              </DataTableAdvancedToolbar>
+            ) : (
+              <DataTableToolbar table={table} filterToggle={filterToggle}>
+                <DataTableSortList table={table} align="end" />
+              </DataTableToolbar>
+            )}
+          </DataTable>
+        </div>
       </div>
     </div>
   );
