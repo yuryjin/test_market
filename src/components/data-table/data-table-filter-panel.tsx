@@ -61,7 +61,7 @@ export function DataTableFilterPanel<TData>({
   return (
     <div
       className={cn(
-        "absolute top-0 left-0 w-80 bg-card border-r z-50 flex flex-col shadow-lg transition-all duration-300 ease-in-out",
+        "absolute top-0 left-0 w-80 bg-[#BEBDC81F] rounded-[26px] border-r z-50 flex flex-col shadow-lg transition-all duration-300 ease-in-out",
         open
           ? "opacity-100 translate-x-0 pointer-events-auto"
           : "opacity-0 -translate-x-full pointer-events-none",
