@@ -80,26 +80,32 @@ export function StatsCardWithChart({
         <div className="text-sm text-muted-foreground">{subtitle}</div>
       </div>
       <div className="h-20 w-full">
-        <svg viewBox="0 0 100 100" className="h-full w-full" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id={`gradient-${color}`} x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="currentColor" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <polyline
-            points={points}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            className={colors.line}
-          />
-          <polygon
-            points={`0,100 ${points} 100,100`}
-            fill={`url(#gradient-${color})`}
-            className={colors.fill}
-          />
-        </svg>
+        {isMounted && chartData.length > 0 ? (
+          <svg viewBox="0 0 100 100" className="h-full w-full" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id={`gradient-${color}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="currentColor" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <polyline
+              points={points}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className={colors.line}
+            />
+            <polygon
+              points={`0,100 ${points} 100,100`}
+              fill={`url(#gradient-${color})`}
+              className={colors.fill}
+            />
+          </svg>
+        ) : (
+          <div className="h-full w-full flex items-center justify-center">
+            <div className="text-muted-foreground text-sm">Загрузка...</div>
+          </div>
+        )}
       </div>
     </div>
   );
