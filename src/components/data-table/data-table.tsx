@@ -31,7 +31,7 @@ export function DataTable<TData>({
       {...props}
     >
       {children}
-      <div className="overflow-hidden rounded-md border">
+      <div className="overflow-hidden rounded-md">
         <div className="relative">
           <div className="sticky top-0 z-10 bg-background shadow-sm" style={{ backgroundColor: '#BEBDC81F' }}>
             <Table>
