@@ -68,8 +68,8 @@ export function DataTableFilterPanel<TData>({
       )}
     >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold">Фильтры</h2>
+        <div className="flex items-center justify-between p-4">
+          <h2 className="text-[24px] leading-[27px] tracking-normal font-medium">Фильтры</h2>
           <div className="flex gap-2">
             <Button
               variant={selectedView === "all" ? "default" : "ghost"}
