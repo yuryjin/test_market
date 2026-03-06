@@ -457,7 +457,7 @@ export function DataTableFilterPanel<TData>({
                   />
                   {allTeams
                     .filter((team) =>
-                      team.toLowerCase().includes(teamFilter.toLowerCase()),
+                      team.toLowerCase().includes(String(teamFilter || "").toLowerCase()),
                     )
                     .slice(0, 5)
                     .map((team) => (
@@ -485,7 +485,7 @@ export function DataTableFilterPanel<TData>({
                   />
                   {allGroups
                     .filter((group) =>
-                      group.toLowerCase().includes(groupFilter.toLowerCase()),
+                      group.toLowerCase().includes(String(groupFilter || "").toLowerCase()),
                     )
                     .slice(0, 5)
                     .map((group) => (
