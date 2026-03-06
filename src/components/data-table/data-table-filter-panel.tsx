@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import type { Trader } from "@/types/trader";
+import { MultiselectCombobox } from "./multiselect-combobox";
 
 interface DataTableFilterPanelProps<TData> {
   table: Table<TData>;
@@ -32,20 +33,48 @@ export function DataTableFilterPanel<TData>({
     const percentageCol = table.getColumn("percentage");
     const dealsCol = table.getColumn("requisites-deals");
     
-    const traderValue = traderCol?.getFilterValue() as string | undefined;
-    const teamValue = teamCol?.getFilterValue() as string | undefined;
+    const traderValue = traderCol?.getFilterValue() as string[] | string | undefined;
+    const teamValue = teamCol?.getFilterValue() as string[] | string | undefined;
     const percentageValue = percentageCol?.getFilterValue() as { from?: number; to?: number } | undefined;
     const dealsValue = dealsCol?.getFilterValue() as { from?: number; to?: number } | undefined;
     
-    if (traderValue) setTraderSearch(traderValue);
-    if (teamValue) setTeamFilter(teamValue);
+    if (traderValue) {
+      if (Array.isArray(traderValue)) {
+        setSelectedTraders(traderValue);
+        setTraderSearch(""); // Очищаем текстовый поиск при использовании multiselect
+      } else {
+        setTraderSearch(traderValue);
+        setSelectedTraders([]); // Очищаем multiselect при использовании текстового поиска
+      }
+    } else {
+      setTraderSearch("");
+      setSelectedTraders([]);
+    }
+    
+    if (teamValue) {
+      if (Array.isArray(teamValue)) {
+        setSelectedTeams(teamValue);
+      } else {
+        setSelectedTeams([]);
+      }
+    } else {
+      setSelectedTeams([]);
+    }
+    
     if (percentageValue) {
       if (percentageValue.from !== undefined) setPercentageFrom(String(percentageValue.from));
       if (percentageValue.to !== undefined) setPercentageTo(String(percentageValue.to));
+    } else {
+      setPercentageFrom("");
+      setPercentageTo("");
     }
+    
     if (dealsValue) {
       if (dealsValue.from !== undefined) setDealsFrom(String(dealsValue.from));
       if (dealsValue.to !== undefined) setDealsTo(String(dealsValue.to));
+    } else {
+      setDealsFrom("");
+      setDealsTo("");
     }
   }, [table]);
 
@@ -53,8 +82,9 @@ export function DataTableFilterPanel<TData>({
   const [traderSearch, setTraderSearch] = React.useState("");
   const [createdDate, setCreatedDate] = React.useState("");
   const createdColumn = table.getColumn("created");
-  const [teamFilter, setTeamFilter] = React.useState("");
-  const [groupFilter, setGroupFilter] = React.useState("");
+  const [selectedTraders, setSelectedTraders] = React.useState<string[]>([]);
+  const [selectedTeams, setSelectedTeams] = React.useState<string[]>([]);
+  const [selectedGroups, setSelectedGroups] = React.useState<string[]>([]);
   const [percentageFrom, setPercentageFrom] = React.useState("");
   const [percentageTo, setPercentageTo] = React.useState("");
   const [dealsFrom, setDealsFrom] = React.useState("");
@@ -81,8 +111,9 @@ export function DataTableFilterPanel<TData>({
   const dealsColumn = table.getColumn("requisites-deals");
   
   const statusFilter = statusColumn?.getFilterValue() as string[] | undefined;
-  const traderFilter = traderColumn?.getFilterValue() as string | undefined;
-  const teamFilterValue = teamColumn?.getFilterValue() as string | undefined;
+  const traderFilter = traderColumn?.getFilterValue() as string[] | string | undefined;
+  const teamFilterValue = teamColumn?.getFilterValue() as string[] | string | undefined;
+  const groupFilterValue = teamColumn?.getFilterValue() as string[] | string | undefined;
   const percentageFilter = percentageColumn?.getFilterValue() as { from?: number; to?: number } | undefined;
   const dealsFilter = dealsColumn?.getFilterValue() as { from?: number; to?: number } | undefined;
 
@@ -92,7 +123,8 @@ export function DataTableFilterPanel<TData>({
     const traders = new Set<string>();
     rows.forEach((row) => {
       const trader = row.original as Trader;
-      traders.add(`${trader.name}/*${trader.id}`);
+      // Используем тот же формат, что и в accessorFn колонки trader
+      traders.add(`${trader.name}/${trader.id}`);
     });
     return Array.from(traders).sort();
   }, [table]);
@@ -121,12 +153,13 @@ export function DataTableFilterPanel<TData>({
   const activeFiltersCount = React.useMemo(() => {
     let count = 0;
     if (statusFilter && statusFilter.length > 0) count++;
-    if (traderFilter) count++;
-    if (teamFilterValue) count++;
+    if (traderFilter && (Array.isArray(traderFilter) ? traderFilter.length > 0 : traderFilter)) count++;
+    if (teamFilterValue && (Array.isArray(teamFilterValue) ? teamFilterValue.length > 0 : teamFilterValue)) count++;
+    if (groupFilterValue && (Array.isArray(groupFilterValue) ? groupFilterValue.length > 0 : groupFilterValue)) count++;
     if (percentageFilter?.from !== undefined || percentageFilter?.to !== undefined) count++;
     if (dealsFilter?.from !== undefined || dealsFilter?.to !== undefined) count++;
     return count;
-  }, [statusFilter, traderFilter, teamFilterValue, percentageFilter, dealsFilter]);
+  }, [statusFilter, traderFilter, teamFilterValue, groupFilterValue, percentageFilter, dealsFilter]);
 
   const onStatusChange = React.useCallback(
     (status: string) => {
@@ -156,22 +189,32 @@ export function DataTableFilterPanel<TData>({
     [traderColumn],
   );
 
-  const onTeamFilterChange = React.useCallback(
-    (value: string) => {
-      setTeamFilter(value);
+  const onTradersSelectionChange = React.useCallback(
+    (values: string[]) => {
+      setSelectedTraders(values);
+      if (traderColumn) {
+        traderColumn.setFilterValue(values.length > 0 ? values : undefined);
+      }
+    },
+    [traderColumn],
+  );
+
+  const onTeamsSelectionChange = React.useCallback(
+    (values: string[]) => {
+      setSelectedTeams(values);
       if (teamColumn) {
-        teamColumn.setFilterValue(value || undefined);
+        teamColumn.setFilterValue(values.length > 0 ? values : undefined);
       }
     },
     [teamColumn],
   );
 
-  const onGroupFilterChange = React.useCallback(
-    (value: string) => {
-      setGroupFilter(value);
+  const onGroupsSelectionChange = React.useCallback(
+    (values: string[]) => {
+      setSelectedGroups(values);
       // Фильтруем по группе через колонку team, так как там есть фильтр по team и group
       if (teamColumn) {
-        teamColumn.setFilterValue(value || undefined);
+        teamColumn.setFilterValue(values.length > 0 ? values : undefined);
       }
     },
     [teamColumn],
@@ -212,15 +255,15 @@ export function DataTableFilterPanel<TData>({
     [dealsColumn],
   );
 
-  // Получаем отфильтрованных трейдеров для тегов
+  // Получаем отфильтрованных трейдеров для тегов (используется только для старого текстового поиска)
   const filteredTraders = React.useMemo(() => {
-    if (!traderFilter) return [];
+    if (!traderFilter || Array.isArray(traderFilter)) return [];
     const rows = table.getCoreRowModel().rows;
     return rows
       .filter((row) => {
         const trader = row.original as Trader;
         const searchStr = `${trader.name}/*${trader.id}`.toLowerCase();
-        return searchStr.includes(traderFilter.toLowerCase());
+        return searchStr.includes(String(traderFilter).toLowerCase());
       })
       .slice(0, 3)
       .map((row) => {
@@ -232,20 +275,21 @@ export function DataTableFilterPanel<TData>({
   // Удаление фильтров
   const removeTraderFilter = React.useCallback(() => {
     setTraderSearch("");
+    setSelectedTraders([]);
     if (traderColumn) {
       traderColumn.setFilterValue(undefined);
     }
   }, [traderColumn]);
 
   const removeTeamFilter = React.useCallback(() => {
-    setTeamFilter("");
+    setSelectedTeams([]);
     if (teamColumn) {
       teamColumn.setFilterValue(undefined);
     }
   }, [teamColumn]);
 
   const removeGroupFilter = React.useCallback(() => {
-    setGroupFilter("");
+    setSelectedGroups([]);
     if (teamColumn) {
       teamColumn.setFilterValue(undefined);
     }
@@ -323,7 +367,12 @@ export function DataTableFilterPanel<TData>({
                 )}
                 {traderFilter && (
                   <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>Трейдер: {traderFilter}</span>
+                    <span>
+                      Трейдер:{" "}
+                      {Array.isArray(traderFilter)
+                        ? traderFilter.join(", ")
+                        : traderFilter}
+                    </span>
                     <button onClick={removeTraderFilter} className="hover:opacity-70 ml-auto">
                       <X className="h-3 w-3" />
                     </button>
@@ -331,8 +380,26 @@ export function DataTableFilterPanel<TData>({
                 )}
                 {teamFilterValue && (
                   <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
-                    <span>Команда: {teamFilterValue}</span>
+                    <span>
+                      Команда:{" "}
+                      {Array.isArray(teamFilterValue)
+                        ? teamFilterValue.join(", ")
+                        : teamFilterValue}
+                    </span>
                     <button onClick={removeTeamFilter} className="hover:opacity-70 ml-auto">
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                )}
+                {groupFilterValue && (
+                  <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded-md text-sm">
+                    <span>
+                      Группа:{" "}
+                      {Array.isArray(groupFilterValue)
+                        ? groupFilterValue.join(", ")
+                        : groupFilterValue}
+                    </span>
+                    <button onClick={removeGroupFilter} className="hover:opacity-70 ml-auto">
                       <X className="h-3 w-3" />
                     </button>
                   </div>
@@ -371,57 +438,40 @@ export function DataTableFilterPanel<TData>({
               <div className="space-y-3">
                 <h3 className="font-semibold text-[18px] leading-[22px] tracking-normal">Трейдер</h3>
                 <div className="space-y-3">
-                  <Input
-                    placeholder="Поиск трейдера..."
+                  <MultiselectCombobox
+                    options={allTraders}
+                    selectedValues={selectedTraders}
+                    onSelectionChange={onTradersSelectionChange}
+                    placeholder="Выберите трейдеров..."
+                    searchPlaceholder="Поиск трейдера..."
+                    emptyText="Трейдеры не найдены"
                     className="h-8"
-                    value={traderSearch}
-                    onChange={(e) => onTraderSearchChange(e.target.value)}
                   />
-                  <div className="flex gap-2 flex-wrap">
-                {filteredTraders.slice(0, 2).map((traderName) => (
-                  <div
-                    key={traderName}
-                    className="flex items-center gap-1 px-2 py-1 bg-muted rounded-md text-sm"
-                  >
-                    <span>{traderName}</span>
-                    <button
-                      onClick={removeTraderFilter}
-                      className="hover:opacity-70"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                ))}
-                {filteredTraders.length > 2 && (
-                  <div className="flex items-center gap-1 px-2 py-1 bg-muted rounded-md text-sm min-w-[40px]">
-                    <span className="text-muted-foreground">...</span>
-                  </div>
-                )}
-                {activeFiltersCount > 0 && (
-                  <div
-                    className="flex items-center gap-1 px-2 py-1 rounded-md text-sm"
-                    style={{
-                      backgroundColor: "#8973FA4D",
-                    }}
-                  >
-                    <span style={{ color: "#C0B4FF" }}>{activeFiltersCount}</span>
-                    <button
-                      onClick={() => {
-                        removeTraderFilter();
-                        removeTeamFilter();
-                        removeGroupFilter();
-                        removePercentageFilter();
-                        removeDealsFilter();
-                        removeStatusFilter();
+                  {activeFiltersCount > 0 && (
+                    <div
+                      className="flex items-center gap-1 px-2 py-1 rounded-md text-sm"
+                      style={{
+                        backgroundColor: "#8973FA4D",
                       }}
-                      className="hover:opacity-70"
                     >
-                      <X className="h-3 w-3" style={{ color: "#C0B4FF" }} />
-                    </button>
-                    <ChevronDown className="h-3 w-3" style={{ color: "#C0B4FF" }} />
-                  </div>
-                )}
-              </div>
+                      <span style={{ color: "#C0B4FF" }}>{activeFiltersCount}</span>
+                      <button
+                        onClick={() => {
+                          removeTraderFilter();
+                          removeTeamFilter();
+                          removeGroupFilter();
+                          removePercentageFilter();
+                          removeDealsFilter();
+                          removeStatusFilter();
+                        }}
+                        className="hover:opacity-70"
+                      >
+                        <X className="h-3 w-3" style={{ color: "#C0B4FF" }} />
+                      </button>
+                      <ChevronDown className="h-3 w-3" style={{ color: "#C0B4FF" }} />
+                    </div>
+                  )}
+                </div>
               <FilterSection
                 title="Создан"
                 icon={<Calendar className="h-4 w-4" />}
@@ -448,27 +498,16 @@ export function DataTableFilterPanel<TData>({
                 expanded={expandedSections.has("teams")}
                 onToggle={() => toggleSection("teams")}
               >
-                <div className="p-2 space-y-2">
-                  <Input
-                    placeholder="Поиск команды"
+                <div className="p-2">
+                  <MultiselectCombobox
+                    options={allTeams}
+                    selectedValues={selectedTeams}
+                    onSelectionChange={onTeamsSelectionChange}
+                    placeholder="Выберите команды..."
+                    searchPlaceholder="Поиск команды..."
+                    emptyText="Команды не найдены"
                     className="h-8"
-                    value={teamFilter}
-                    onChange={(e) => onTeamFilterChange(e.target.value)}
                   />
-                  {allTeams
-                    .filter((team) =>
-                      team.toLowerCase().includes(String(teamFilter || "").toLowerCase()),
-                    )
-                    .slice(0, 5)
-                    .map((team) => (
-                      <button
-                        key={team}
-                        onClick={() => onTeamFilterChange(team)}
-                        className="w-full text-left px-2 py-1 text-sm hover:bg-muted rounded"
-                      >
-                        {team}
-                      </button>
-                    ))}
                 </div>
               </FilterSection>
               <FilterSection
@@ -476,31 +515,19 @@ export function DataTableFilterPanel<TData>({
                 expanded={expandedSections.has("groups")}
                 onToggle={() => toggleSection("groups")}
               >
-                <div className="p-2 space-y-2">
-                  <Input
-                    placeholder="Поиск группы"
+                <div className="p-2">
+                  <MultiselectCombobox
+                    options={allGroups}
+                    selectedValues={selectedGroups}
+                    onSelectionChange={onGroupsSelectionChange}
+                    placeholder="Выберите группы..."
+                    searchPlaceholder="Поиск группы..."
+                    emptyText="Группы не найдены"
                     className="h-8"
-                    value={groupFilter}
-                    onChange={(e) => onGroupFilterChange(e.target.value)}
                   />
-                  {allGroups
-                    .filter((group) =>
-                      group.toLowerCase().includes(String(groupFilter || "").toLowerCase()),
-                    )
-                    .slice(0, 5)
-                    .map((group) => (
-                      <button
-                        key={group}
-                        onClick={() => onGroupFilterChange(group)}
-                        className="w-full text-left px-2 py-1 text-sm hover:bg-muted rounded"
-                      >
-                        {group}
-                      </button>
-                    ))}
                 </div>
               </FilterSection>
               </div>
-            </div>
 
             {/* <Separator /> */}
 

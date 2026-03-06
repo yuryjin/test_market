@@ -13,6 +13,17 @@ import { formatCurrency, formatDateTime } from "@/lib/format";
 const includesStringFilter: FilterFn<Trader> = (row, columnId, filterValue) => {
   const value = row.getValue(columnId);
   if (!filterValue) return true;
+  
+  // Поддержка массива значений для multiselect
+  if (Array.isArray(filterValue)) {
+    const valueStr = String(value ?? "").toLowerCase();
+    // Для массива проверяем точное совпадение (для multiselect combobox)
+    return filterValue.some((fv) => {
+      const filterStr = String(fv).toLowerCase();
+      return valueStr === filterStr;
+    });
+  }
+  
   return String(value ?? "")
     .toLowerCase()
     .includes(String(filterValue).toLowerCase());
@@ -115,8 +126,22 @@ export function getTradersTableColumns({
       },
       enableColumnFilter: true,
       filterFn: (row, columnId, filterValue) => {
+        if (!filterValue) return true;
+        
         const team = row.getValue(columnId) as string;
         const group = row.original.group;
+        
+        // Поддержка массива значений для multiselect
+        if (Array.isArray(filterValue)) {
+          return filterValue.some((fv) => {
+            const searchValue = String(fv).toLowerCase();
+            return (
+              team.toLowerCase().includes(searchValue) ||
+              group.toLowerCase().includes(searchValue)
+            );
+          });
+        }
+        
         const searchValue = String(filterValue).toLowerCase();
         return (
           team.toLowerCase().includes(searchValue) ||
