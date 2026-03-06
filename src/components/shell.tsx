@@ -4,7 +4,7 @@ import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const shellVariants = cva(
-  "grid grid-cols-1 items-center gap-8 pt-6 pb-8 md:py-8",
+  "grid grid-cols-1 items-center pt-6 pb-8 md:pt-10",
   {
     variants: {
       variant: {
