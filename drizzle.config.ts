@@ -7,8 +7,8 @@ export default {
   schema: "./src/db/schema.ts",
   dialect: "postgresql",
   out: "./drizzle",
-  dbCredentials: {
-    url: env.DATABASE_URL,
-  },
+  // dbCredentials: {
+  //   url: env.DATABASE_URL,
+  // },
   tablesFilter: [`${DATABASE_PREFIX}_*`],
 } satisfies Config;
