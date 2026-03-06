@@ -541,49 +541,63 @@ export function DataTableFilterPanel<TData>({
                     От
                   </label>
                   <div className="relative">
-                    <Input
-                      type="number"
-                      placeholder="От"
-                      className="h-8 pr-8"
-                      value={percentageFrom}
-                      onChange={(e) =>
-                        onPercentageFilterChange(e.target.value, percentageTo)
+                  <Input
+                    type="number"
+                    placeholder="От"
+                    className="h-8 pr-8"
+                    min="0"
+                    max="100"
+                    value={percentageFrom}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const numValue = value ? parseFloat(value) : undefined;
+                      if (numValue !== undefined && (numValue < 0 || numValue > 100)) {
+                        return;
                       }
-                    />
-                    {percentageFrom && (
-                      <button
-                        onClick={() => onPercentageFilterChange("", percentageTo)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 hover:opacity-70"
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    )}
-                  </div>
+                      onPercentageFilterChange(value, percentageTo);
+                    }}
+                  />
+                  {percentageFrom && (
+                    <button
+                      onClick={() => onPercentageFilterChange("", percentageTo)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 hover:opacity-70"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  )}
                 </div>
-                <div className="flex-1">
-                  <label className="text-xs text-muted-foreground mb-1 block">
-                    До
-                  </label>
-                  <div className="relative">
-                    <Input
-                      type="number"
-                      placeholder="До"
-                      className="h-8 pr-8"
-                      value={percentageTo}
-                      onChange={(e) =>
-                        onPercentageFilterChange(percentageFrom, e.target.value)
+              </div>
+              <div className="flex-1">
+                <label className="text-xs text-muted-foreground mb-1 block">
+                  До
+                </label>
+                <div className="relative">
+                  <Input
+                    type="number"
+                    placeholder="До"
+                    className="h-8 pr-8"
+                    min="0"
+                    max="100"
+                    value={percentageTo}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const numValue = value ? parseFloat(value) : undefined;
+                      if (numValue !== undefined && (numValue < 0 || numValue > 100)) {
+                        return;
                       }
-                    />
-                    {percentageTo && (
-                      <button
-                        onClick={() => onPercentageFilterChange(percentageFrom, "")}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 hover:opacity-70"
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    )}
-                  </div>
+                      onPercentageFilterChange(percentageFrom, value);
+                    }}
+                  />
+                  {percentageTo && (
+                    <button
+                      onClick={() => onPercentageFilterChange(percentageFrom, "")}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 hover:opacity-70"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  )}
                 </div>
+              </div>
               </div>
             </div>
 
@@ -618,8 +632,16 @@ export function DataTableFilterPanel<TData>({
                         type="number"
                         placeholder="От"
                         className="h-8 pr-8"
+                        min="0"
                         value={dealsFrom}
-                        onChange={(e) => onDealsFilterChange(e.target.value, dealsTo)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          const numValue = value ? parseInt(value, 10) : undefined;
+                          if (numValue !== undefined && numValue < 0) {
+                            return;
+                          }
+                          onDealsFilterChange(value, dealsTo);
+                        }}
                       />
                       {dealsFrom && (
                         <button
@@ -640,8 +662,16 @@ export function DataTableFilterPanel<TData>({
                         type="number"
                         placeholder="До"
                         className="h-8 pr-8"
+                        min="0"
                         value={dealsTo}
-                        onChange={(e) => onDealsFilterChange(dealsFrom, e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          const numValue = value ? parseInt(value, 10) : undefined;
+                          if (numValue !== undefined && numValue < 0) {
+                            return;
+                          }
+                          onDealsFilterChange(dealsFrom, value);
+                        }}
                       />
                       {dealsTo && (
                         <button
