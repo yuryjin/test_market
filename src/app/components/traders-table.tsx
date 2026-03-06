@@ -73,7 +73,7 @@ export function TradersTable({ promises, queryKeys }: TradersTableProps) {
   );
 
   return (
-    <div className="relative w-[1351px] mt-4 md:mt-2.5">
+    <div className="relative w-[1351px] mt-4 md:mt-2.5 h-[815px]">
       <DataTableFilterPanel
         table={table}
         open={filterPanelOpen}

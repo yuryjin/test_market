@@ -27,12 +27,12 @@ export function DataTable<TData>({
 }: DataTableProps<TData>) {
   return (
     <div
-      className={cn("flex w-full flex-col gap-2.5 overflow-auto bg-[#BEBDC81F] p-4 rounded-[26px]", className)}
+      className={cn("flex w-full flex-col gap-2.5 overflow-auto bg-[#BEBDC81F] p-4 rounded-[26px] h-full", className)}
       {...props}
     >
       {children}
-      <div className="overflow-hidden rounded-md">
-        <div className="relative">
+      <div className="overflow-hidden rounded-md h-full">
+        <div className="relative h-full">
           <div className="sticky top-0 z-10 bg-background shadow-sm" style={{ backgroundColor: '#BEBDC81F' }}>
             <Table>
               <TableHeader>
