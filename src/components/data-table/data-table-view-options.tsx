@@ -1,20 +1,32 @@
 "use client";
 
 import type { Table } from "@tanstack/react-table";
-import { SettingsIcon, X } from "lucide-react";
+import { GripVertical, SettingsIcon, X } from "lucide-react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Sortable,
+  SortableContent,
+  SortableItem,
+  SortableItemHandle,
+} from "@/components/ui/sortable";
+import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
 interface DataTableViewOptionsProps<TData> {
@@ -27,7 +39,7 @@ export function DataTableViewOptions<TData>({
   disabled,
 }: DataTableViewOptionsProps<TData>) {
   const [open, setOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [updateInterval, setUpdateInterval] = React.useState("5");
 
   const columns = React.useMemo(
     () =>
@@ -40,23 +52,53 @@ export function DataTableViewOptions<TData>({
     [table],
   );
 
-  const filteredColumns = React.useMemo(
-    () =>
-      columns.filter((column) => {
-        const label =
-          column.columnDef.meta?.label ?? column.id;
-        return label
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase());
-      }),
-    [columns, searchQuery],
+  const currentColumnOrder = table.getState().columnOrder.length > 0
+    ? table.getState().columnOrder
+    : columns.map((col) => col.id);
+
+  const sortedColumns = React.useMemo(() => {
+    const orderMap = new Map(currentColumnOrder.map((id, index) => [id, index]));
+    return [...columns].sort((a, b) => {
+      const aIndex = orderMap.get(a.id) ?? Infinity;
+      const bIndex = orderMap.get(b.id) ?? Infinity;
+      return aIndex - bIndex;
+    });
+  }, [columns, currentColumnOrder]);
+
+  const columnOrder = React.useMemo(
+    () => sortedColumns.map((col) => col.id),
+    [sortedColumns],
   );
+
+  const onColumnOrderChange = React.useCallback(
+    (newOrder: string[]) => {
+      // Обновляем порядок колонок через columnOrder
+      table.setColumnOrder(newOrder);
+    },
+    [table],
+  );
+
+  const onEnableAllColumns = React.useCallback(() => {
+    columns.forEach((column) => {
+      if (!column.getIsVisible()) {
+        column.toggleVisibility(true);
+      }
+    });
+  }, [columns]);
+
+  const onResetToDefault = React.useCallback(() => {
+    // Сбрасываем видимость колонок к значениям по умолчанию
+    columns.forEach((column) => {
+      const defaultVisible = column.columnDef.enableHiding !== false;
+      column.toggleVisibility(defaultVisible);
+    });
+  }, [columns]);
 
   return (
     <Drawer open={open} onOpenChange={setOpen} direction="right">
       <DrawerTrigger asChild>
         <Button
-          aria-label="Настройки колонок"
+          aria-label="Настройка таблицы"
           variant="outline"
           size="sm"
           className="ml-auto hidden h-8 font-normal lg:flex bg-transparent border-none"
@@ -69,12 +111,7 @@ export function DataTableViewOptions<TData>({
       <DrawerContent className="h-full w-full sm:max-w-md flex flex-col">
         <DrawerHeader className="border-b shrink-0">
           <div className="flex items-center justify-between">
-            <div>
-              <DrawerTitle>Настройки колонок</DrawerTitle>
-              <DrawerDescription>
-                Выберите колонки для отображения в таблице
-              </DrawerDescription>
-            </div>
+            <DrawerTitle>Настройка таблицы</DrawerTitle>
             <DrawerClose asChild>
               <Button variant="ghost" size="icon" className="h-8 w-8">
                 <X className="h-4 w-4" />
@@ -82,49 +119,95 @@ export function DataTableViewOptions<TData>({
             </DrawerClose>
           </div>
         </DrawerHeader>
-        <div className="flex flex-col gap-4 p-4 flex-1 min-h-0">
-          <Input
-            placeholder="Поиск колонок..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full shrink-0"
-          />
-          <div className="flex-1 overflow-y-auto min-h-0">
-            <div className="flex flex-col gap-2">
-              {filteredColumns.length > 0 ? (
-                filteredColumns.map((column) => {
+        <div className="flex flex-col gap-6 p-4 flex-1 min-h-0 overflow-y-auto">
+          {/* Секция обновления */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="update-interval">Обновление</Label>
+            <Select value={updateInterval} onValueChange={setUpdateInterval}>
+              <SelectTrigger id="update-interval" className="w-full">
+                <SelectValue placeholder="Выберите интервал" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="5">Каждые 5 секунд</SelectItem>
+                <SelectItem value="10">Каждые 10 секунд</SelectItem>
+                <SelectItem value="30">Каждые 30 секунд</SelectItem>
+                <SelectItem value="60">Каждую минуту</SelectItem>
+                <SelectItem value="0">Отключено</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Секция набора и порядка столбцов */}
+          <div className="flex flex-col gap-3">
+            <Label>Набор и порядок столбцов</Label>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onResetToDefault}
+                className="flex-1"
+              >
+                Набор по умолчанию
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onEnableAllColumns}
+                className="flex-1"
+              >
+                Включить все столбцы
+              </Button>
+            </div>
+            <Sortable
+              value={columnOrder}
+              onValueChange={onColumnOrderChange}
+              getItemValue={(id) => id}
+              orientation="vertical"
+            >
+              <SortableContent className="flex flex-col gap-2">
+                {sortedColumns.map((column) => {
                   const label =
                     column.columnDef.meta?.label ?? column.id;
                   const isVisible = column.getIsVisible();
 
                   return (
-                    <div
+                    <SortableItem
                       key={column.id}
+                      value={column.id}
                       className="flex items-center gap-3 rounded-md border p-3 hover:bg-muted/50 transition-colors"
                     >
-                      <Checkbox
-                        id={column.id}
+                      <SortableItemHandle asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-6 w-6 cursor-grab active:cursor-grabbing"
+                        >
+                          <GripVertical className="h-4 w-4 text-muted-foreground" />
+                        </Button>
+                      </SortableItemHandle>
+                      <span className="flex-1 text-sm font-medium">
+                        {label}
+                      </span>
+                      <Switch
                         checked={isVisible}
-                        onCheckedChange={(checked) =>
-                          column.toggleVisibility(!!checked)
+                        onCheckedChange={(checked: boolean) =>
+                          column.toggleVisibility(checked)
                         }
                       />
-                      <label
-                        htmlFor={column.id}
-                        className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        {label}
-                      </label>
-                    </div>
+                    </SortableItem>
                   );
-                })
-              ) : (
-                <div className="py-8 text-center text-sm text-muted-foreground">
-                  Колонки не найдены.
-                </div>
-              )}
-            </div>
+                })}
+              </SortableContent>
+            </Sortable>
           </div>
+        </div>
+        <div className="border-t p-4 shrink-0">
+          <Button
+            onClick={() => setOpen(false)}
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            Применить
+          </Button>
         </div>
       </DrawerContent>
     </Drawer>
