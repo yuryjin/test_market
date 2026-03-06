@@ -65,7 +65,7 @@ export function TradersStats({
 
   return (
     // <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5 mb-6">
-    <div className="flex gap-2.5">
+    <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:flex gap-2.5 overflow-y-hidden sm:overflow-x-hidden overflow-x-scroll">
       <TradersStatsCard stats={stats} />
       <StatsCardWithChart
         title={formatCurrency(averages.turnover)}

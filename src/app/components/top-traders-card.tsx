@@ -22,7 +22,7 @@ export function TopTradersCard({
   onPeriodChange,
 }: TopTradersCardProps) {
   return (
-    <div className="rounded-lg bg-[#BEBDC81F] p-6 w-[418px] h-[210px]">
+    <div className="rounded-lg bg-[#BEBDC81F] p-6 w-[418px] sm:w-full xl:w-[418px] h-[210px] col-span-2  min-w-[418px] min-h-[210px] max-h-[210px]">
       <div className="flex items-center justify-between mb-4">
         <div className="text-2xl font-bold">Топ-3</div>
         <div className="flex gap-2">
