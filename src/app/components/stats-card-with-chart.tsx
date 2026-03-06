@@ -19,14 +19,29 @@ export function StatsCardWithChart({
   color = "green",
   data,
 }: StatsCardWithChartProps) {
-  // Генерируем случайные данные для графика, если не переданы
-  const chartData = React.useMemo(() => {
-    if (data && data.length > 0) return data;
-    return Array.from({ length: 30 }, () => Math.random() * 100);
-  }, [data]);
+  // Генерируем данные только на клиенте после монтирования, чтобы избежать hydration mismatch
+  const [chartData, setChartData] = React.useState<number[]>([]);
+  const [isMounted, setIsMounted] = React.useState(false);
 
-  const maxValue = Math.max(...chartData);
-  const minValue = Math.min(...chartData);
+  React.useEffect(() => {
+    setIsMounted(true);
+    if (data && data.length > 0) {
+      setChartData(data);
+    } else {
+      // Генерируем стабильные данные на основе цвета для консистентности
+      const seed = color === "green" ? 0.5 : color === "purple" ? 0.3 : 0.7;
+      const generated = Array.from({ length: 30 }, (_, i) => {
+        // Используем синусоидальную функцию с небольшим случайным элементом для более реалистичного вида
+        const base = Math.sin((i / 30) * Math.PI * 2) * 30 + 50;
+        const variation = (Math.random() - 0.5) * 20;
+        return Math.max(0, Math.min(100, base + variation));
+      });
+      setChartData(generated);
+    }
+  }, [data, color]);
+
+  const maxValue = chartData.length > 0 ? Math.max(...chartData) : 100;
+  const minValue = chartData.length > 0 ? Math.min(...chartData) : 0;
   const range = maxValue - minValue || 1;
 
   const normalizedData = chartData.map((val) => (val - minValue) / range);
@@ -48,15 +63,15 @@ export function StatsCardWithChart({
 
   const colors = colorClasses[color];
 
-  const points = normalizedData
-    .map((val, i) => {
-      const x = (i / (normalizedData.length - 1)) * 100;
-      const y = 100 - val * 80 - 10; // Оставляем отступы сверху и снизу
-      return `${x},${y}`;
-    })
-    .join(" ");
-
-  const pathData = `M ${points}`;
+  const points = normalizedData.length > 0
+    ? normalizedData
+        .map((val, i) => {
+          const x = (i / (normalizedData.length - 1)) * 100;
+          const y = 100 - val * 80 - 10; // Оставляем отступы сверху и снизу
+          return `${x},${y}`;
+        })
+        .join(" ")
+    : "0,90 100,90"; // Fallback для пустого состояния
 
   return (
     <div className="rounded-lg border bg-card p-6">

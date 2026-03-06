@@ -265,6 +265,9 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     [debouncedSetFilterValues, filterableColumns, enableAdvancedFilter],
   );
 
+  // Если pageCount === -1, используем клиентскую обработку данных
+  const isClientSide = pageCount === -1;
+
   const table = useReactTable({
     ...tableProps,
     columns,
@@ -294,9 +297,9 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    manualPagination: true,
-    manualSorting: true,
-    manualFiltering: true,
+    manualPagination: !isClientSide,
+    manualSorting: !isClientSide,
+    manualFiltering: !isClientSide,
     meta: {
       ...tableProps.meta,
       queryKeys: {

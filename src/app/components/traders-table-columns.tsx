@@ -1,6 +1,6 @@
 "use client";
 
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { CalendarIcon, CircleDashed } from "lucide-react";
 import * as React from "react";
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
@@ -8,6 +8,15 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { Trader } from "@/types/trader";
 import { formatCurrency, formatDateTime } from "@/lib/format";
+
+// Функция фильтрации для текстовых полей
+const includesStringFilter: FilterFn<Trader> = (row, columnId, filterValue) => {
+  const value = row.getValue(columnId);
+  if (!filterValue) return true;
+  return String(value ?? "")
+    .toLowerCase()
+    .includes(String(filterValue).toLowerCase());
+};
 
 interface GetTradersTableColumnsProps {
   statusCounts: Record<Trader["status"], number>;
@@ -70,6 +79,7 @@ export function getTradersTableColumns({
         variant: "text",
       },
       enableColumnFilter: true,
+      filterFn: includesStringFilter,
     },
     {
       id: "team",
@@ -91,6 +101,15 @@ export function getTradersTableColumns({
         variant: "text",
       },
       enableColumnFilter: true,
+      filterFn: (row, columnId, filterValue) => {
+        const team = row.getValue(columnId) as string;
+        const group = row.original.group;
+        const searchValue = String(filterValue).toLowerCase();
+        return (
+          team.toLowerCase().includes(searchValue) ||
+          group.toLowerCase().includes(searchValue)
+        );
+      },
     },
     {
       id: "status",
@@ -132,6 +151,14 @@ export function getTradersTableColumns({
         icon: CircleDashed,
       },
       enableColumnFilter: true,
+      filterFn: (row, columnId, filterValue) => {
+        if (!filterValue || (Array.isArray(filterValue) && filterValue.length === 0)) {
+          return true;
+        }
+        const status = row.getValue(columnId) as string;
+        const filterArray = Array.isArray(filterValue) ? filterValue : [filterValue];
+        return filterArray.includes(status);
+      },
     },
     {
       id: "requisites-deals",
