@@ -2,8 +2,8 @@
 
 **Запуск проекта осуществляется командами:**
 
-- [x] npm (или pnpm) install
-- [x] npm (или pnpm) dev
+- npm (или pnpm) install
+- npm (или pnpm) dev
 
 тесты запускаются по команде **npm (или pnpm) test**
 
