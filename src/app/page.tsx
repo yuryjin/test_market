@@ -5,7 +5,16 @@ import { getValidFilters } from "@/lib/data-table";
 import type { SearchParams } from "@/types";
 import { FeatureFlagsProvider } from "./components/feature-flags-provider";
 import { TradersTable } from "./components/traders-table";
-import { getTraders, getTraderStatusCounts } from "./lib/traders-queries";
+import { TradersStats } from "./components/traders-stats";
+import {
+  getTraders,
+  getTraderStatusCounts,
+} from "./lib/traders-queries";
+import {
+  getAverageStats,
+  getTopTraders,
+  getTraderStats,
+} from "./lib/traders-stats";
 import { searchParamsCache } from "./lib/validations";
 
 interface IndexPageProps {
@@ -48,10 +57,28 @@ async function TradersTableWrapper(props: IndexPageProps) {
 
   const validFilters = getValidFilters(search.filters);
 
-  const promises = Promise.all([
+  const [tradersResult, statusCountsPromise, statsPromise, averagesPromise, topTradersPromise] = await Promise.all([
     getTraders(),
     getTraderStatusCounts(),
+    getTraderStats(),
+    getAverageStats(),
+    getTopTraders("deals", "30d"),
   ]);
 
-  return <TradersTable promises={promises} />;
+  return (
+    <>
+      <TradersStats
+        stats={statsPromise}
+        averages={averagesPromise}
+        topTraders={topTradersPromise}
+        traders={tradersResult.data}
+      />
+      <TradersTable
+        promises={Promise.all([
+          Promise.resolve(tradersResult),
+          Promise.resolve(statusCountsPromise),
+        ])}
+      />
+    </>
+  );
 }
