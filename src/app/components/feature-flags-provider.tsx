@@ -81,7 +81,7 @@ export function FeatureFlagsProvider({ children }: FeatureFlagsProviderProps) {
           onValueChange={onFilterFlagChange}
           className="w-fit gap-0"
         >
-          {flagConfig.featureFlags.map((flag) => (
+          {/* {flagConfig.featureFlags.map((flag) => (
             <Tooltip key={flag.value} delayDuration={700}>
               <ToggleGroupItem
                 value={flag.value}
@@ -105,7 +105,7 @@ export function FeatureFlagsProvider({ children }: FeatureFlagsProviderProps) {
                 </p>
               </TooltipContent>
             </Tooltip>
-          ))}
+          ))} */}
         </ToggleGroup>
       </div>
       {children}
